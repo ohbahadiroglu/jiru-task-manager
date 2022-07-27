@@ -11,3 +11,5 @@ jira.username=ohbahadiroglu@gmail.com
 jira.password=AW4VsAkjED1LCmHhbeqc24F2
 
 from :https://id.atlassian.com/manage-profile/security/api-tokens
+
+zilan
