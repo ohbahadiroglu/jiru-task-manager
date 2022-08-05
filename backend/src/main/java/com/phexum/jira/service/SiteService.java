@@ -8,10 +8,7 @@ import java.util.Optional;
 
 public interface SiteService {
     Site create(Site site);
-
     List<Site> findAll();
-
     Optional<Site> findById(Long id);
-
     void delete(Long id);
 }

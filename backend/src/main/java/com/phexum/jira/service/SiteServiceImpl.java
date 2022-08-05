@@ -9,19 +9,22 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class SiteServiceImp implements SiteService {
+public class SiteServiceImpl implements SiteService {
     private final SiteRepository siteRepository;
 
-    public SiteServiceImp(SiteRepository siteRepository) {
+    public SiteServiceImpl(SiteRepository siteRepository) {
         this.siteRepository = siteRepository;
     }
+
     public Site create(Site site) {
         return siteRepository.save(site);
     }
+
     public List<Site> findAll() {
         List<Site> site = siteRepository.findAll();
         return site;
     }
+
     public Optional<Site> findById(Long id) {
         return siteRepository.findById(id);
     }
