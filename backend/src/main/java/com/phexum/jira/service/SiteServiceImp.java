@@ -1,22 +1,37 @@
 package com.phexum.jira.service;
 
 import com.phexum.jira.entity.Site;
+import com.phexum.jira.exception.NotFoundException;
 import com.phexum.jira.repository.SiteRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
-public class SiteServiceImp implements SiteService{
+public class SiteServiceImp implements SiteService {
     private final SiteRepository siteRepository;
 
     public SiteServiceImp(SiteRepository siteRepository) {
         this.siteRepository = siteRepository;
     }
-
-
-    public Site addSite(Site site) {
-        site = siteRepository.save(site);
-       return site;
+    public Site create(Site site) {
+        return siteRepository.save(site);
+    }
+    public List<Site> findAll() {
+        List<Site> site = siteRepository.findAll();
+        return site;
+    }
+    public Optional<Site> findById(Long id) {
+        return siteRepository.findById(id);
     }
 
+    public void delete(Long id) {
+        Optional<Site> op = siteRepository.findById(id);
+        if (op.isEmpty()) {
+            throw new NotFoundException(id);
+        }
 
+        siteRepository.deleteById(id);
+    }
 }
