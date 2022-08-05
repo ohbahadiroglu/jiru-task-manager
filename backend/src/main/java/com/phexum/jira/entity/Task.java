@@ -1,21 +1,25 @@
 package com.phexum.jira.entity;
 
+
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Getter
 @Setter
-public class Period {
+public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
+
     private String name;
-    private String state;
+    private String type;
+    private int totalHours;
+    private String code;
 
     @ManyToOne
-    private HourlyWage hourlyWage;
+    private Period period;
+
 }
