@@ -7,6 +7,7 @@ import com.phexum.jira.service.PeriodService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,13 +21,8 @@ public class PeriodController {
     }
 
     @PostMapping
-    public ResponseEntity create(@RequestBody Period period) {
-
-        Optional<Period> op = Optional.ofNullable(periodService.create(period));
-        if (op.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(op.get());
+    public ResponseEntity create(@Valid @RequestBody Period period) {
+        return ResponseEntity.ok(periodService.create(period));
     }
 
     @GetMapping

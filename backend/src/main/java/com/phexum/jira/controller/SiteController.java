@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,12 +27,8 @@ public class SiteController {
     }
 
     @PostMapping
-    public ResponseEntity create(@RequestBody Site site) throws Exception {
-
-        if (site.getEmail().equals("") || site.getToken().equals("") || site.getUrl().equals("")){
-            return ResponseEntity.status(400).body("olmadı 400");
-        }
-            return new ResponseEntity<Site>(siteService.create(site), HttpStatus.CREATED);
+    public ResponseEntity create(@Valid @RequestBody Site site) {
+            return ResponseEntity.ok(siteService.create(site));
     }
 
     @GetMapping

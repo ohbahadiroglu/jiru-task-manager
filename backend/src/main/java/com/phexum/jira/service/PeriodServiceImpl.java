@@ -1,8 +1,10 @@
 package com.phexum.jira.service;
 
 import com.phexum.jira.entity.Period;
+import com.phexum.jira.entity.Site;
 import com.phexum.jira.exception.NotFoundException;
 import com.phexum.jira.repository.PeriodRepository;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,10 +20,7 @@ public class PeriodServiceImpl implements PeriodService{
     }
 
     public Period create(Period period) {
-        if ((period.getName() != "") && (period.getState() != "")) {
-            return periodRepository.save(period);
-        }
-        return null;
+    return periodRepository.save(period);
     }
 
 
