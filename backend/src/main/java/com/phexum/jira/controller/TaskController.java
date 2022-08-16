@@ -1,8 +1,8 @@
 package com.phexum.jira.controller;
 
 import com.phexum.jira.entity.Task;
+import com.phexum.jira.exception.NotFoundException;
 import com.phexum.jira.service.TaskService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,25 +21,31 @@ public class TaskController {
 
     @GetMapping
     public ResponseEntity<List<Task>> findAll() {
-        List<Task> allTasks = this.taskService.findAll();
-        return new ResponseEntity<List<Task>>(allTasks, HttpStatus.CREATED);
+        return ResponseEntity.ok(taskService.findAll());
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<Optional<Task>> findById(@PathVariable("id") Long id) {
+    public ResponseEntity findById(@PathVariable("id") Long id) {
         Optional<Task> task = this.taskService.findById(id);
-        return new ResponseEntity<Optional<Task>>(task, HttpStatus.CREATED);
+        if (task.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(task.get());
     }
 
     @PostMapping
-    public ResponseEntity<Task> create(@RequestBody Task task) {
-        Task taskNew = this.taskService.create(task);
-        return new ResponseEntity<Task>(taskNew, HttpStatus.CREATED);
+    public ResponseEntity create(@RequestBody Task task) {
+        return ResponseEntity.ok(taskService.create(task));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@PathVariable("id") Long id) {
-        taskService.delete(id);
-        return new ResponseEntity<String>("Deleted", HttpStatus.OK);
+        try {
+            taskService.delete(id);
+        } catch (NotFoundException e) {
+            return ResponseEntity.status(404).body(e.getMessage());
+        }
+        return ResponseEntity.ok().build();
     }
 }
+

@@ -28,6 +28,7 @@ public class ExampleController {
         jiraClient.getAllProjects().forEach(p -> System.out.println(p.getKey()));
         List<IssueDto> issues = jiraClient.getAllDoneIssues("TN").stream().map(IssueDto::from).collect(Collectors.toList());
 
+
         AtomicInteger count = new AtomicInteger();
 
         for (IssueDto i : issues) {

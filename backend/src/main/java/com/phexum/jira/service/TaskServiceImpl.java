@@ -24,16 +24,17 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public Optional<Task> findById(Long id) {
-        return Optional.of(taskRepository.getById(id));
+        return taskRepository.findById(id);
+    }
+
+    @Override
+    public Optional<Task> findByCode(String code) {
+        return (taskRepository.findByCode(code));
     }
 
     @Override
     public Task create(Task task) {
-        if (task.getName() != "" && task.getType() != "") {
-            return taskRepository.save(task);
-        } else {
-            return null;
-        }
+        return taskRepository.save(task);
     }
 
     @Override

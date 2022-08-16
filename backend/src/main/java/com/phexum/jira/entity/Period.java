@@ -19,6 +19,6 @@ public class Period {
     @NotBlank(message = "State can not be Blank")
     private String state;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     private HourlyWage hourlyWage;
 }

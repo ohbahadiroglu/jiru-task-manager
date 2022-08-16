@@ -11,6 +11,8 @@ public interface TaskService {
 
     Optional<Task> findById(Long id);
 
+    Optional<Task> findByCode(String code);
+
     Task create(Task task);
 
     void delete(Long id);

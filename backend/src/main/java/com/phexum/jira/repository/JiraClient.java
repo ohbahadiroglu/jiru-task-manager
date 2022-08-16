@@ -44,7 +44,7 @@ public class JiraClient {
         List<Issue> issues = new ArrayList<>();
         AtomicInteger offset = new AtomicInteger();
         while (true) {
-            Iterable<Issue> temp = getIssues("TN", null, 200, offset.get());
+            Iterable<Issue> temp = getIssues(project, null, 200, offset.get());
             if (!temp.iterator().hasNext()) {
                 break;
             }
@@ -62,7 +62,7 @@ public class JiraClient {
         List<Issue> issues = new ArrayList<>();
         AtomicInteger offset = new AtomicInteger();
         while (true) {
-            Iterable<Issue> temp = getIssues("TN", "status='DONE'", 200, offset.get());
+            Iterable<Issue> temp = getIssues(project, "status='DONE'", 200, offset.get());
             if (!temp.iterator().hasNext()) {
                 break;
             }
@@ -76,7 +76,7 @@ public class JiraClient {
     }
 
     public Iterable<Issue> getIssues(String project, String query, int limit, int offset) throws ExecutionException, InterruptedException {
-        return restClient.getSearchClient().searchJql("project=" + project + (query == null ? "" : " AND " + query), limit, offset, Set.of("worklog", "summary", "status", "key", "description", "issuetype", "created", "updated", "project","reporter","assignee","labels")).get().getIssues();
+        return restClient.getSearchClient().searchJql("project=" + project + (query == null ? "" : " AND " + query), limit, offset, Set.of("worklog", "summary", "status", "key", "description", "issuetype", "created", "updated", "project", "reporter", "assignee", "labels")).get().getIssues();
     }
 
 }

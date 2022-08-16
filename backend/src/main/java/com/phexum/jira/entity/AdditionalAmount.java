@@ -19,7 +19,7 @@ public class AdditionalAmount {
 
     @NotBlank(message = "name should not be blank")
     private String name;
-    @NotNull(message = "name should not be blank")
+    @NotNull(message = "amount should not be blank")
     private double amount;
 
     @NotNull
