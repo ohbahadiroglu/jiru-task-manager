@@ -52,11 +52,9 @@ public class JiraClient {
                 offset.getAndIncrement();
                 issues.add(t);
             });
-
         }
         return issues;
     }
-
 
     public List<Issue> getAllDoneIssues(String project) throws ExecutionException, InterruptedException {
         List<Issue> issues = new ArrayList<>();
@@ -78,6 +76,5 @@ public class JiraClient {
     public Iterable<Issue> getIssues(String project, String query, int limit, int offset) throws ExecutionException, InterruptedException {
         return restClient.getSearchClient().searchJql("project=" + project + (query == null ? "" : " AND " + query), limit, offset, Set.of("worklog", "summary", "status", "key", "description", "issuetype", "created", "updated", "project", "reporter", "assignee", "labels")).get().getIssues();
     }
-
 }
 

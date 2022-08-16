@@ -3,17 +3,12 @@ package com.phexum.jira.controller;
 import com.phexum.jira.entity.Site;
 import com.phexum.jira.exception.NotFoundException;
 import com.phexum.jira.service.SiteService;
-import org.springframework.beans.factory.annotation.Required;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
-
-import static org.springframework.util.ObjectUtils.isEmpty;
 
 @RestController
 @RequestMapping("/site")

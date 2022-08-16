@@ -2,6 +2,7 @@ package com.phexum.jira.service;
 
 import com.phexum.jira.entity.Site;
 import com.phexum.jira.exception.NotFoundException;
+import com.phexum.jira.repository.JiraClient;
 import com.phexum.jira.repository.SiteRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

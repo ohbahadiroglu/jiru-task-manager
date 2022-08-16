@@ -17,6 +17,7 @@ public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    
     @NotBlank
     private String summary;
     @NotNull

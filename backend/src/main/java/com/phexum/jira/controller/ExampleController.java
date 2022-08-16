@@ -24,10 +24,9 @@ public class ExampleController {
 
     @GetMapping
     public ResponseEntity projects() throws ExecutionException, InterruptedException {
-        JiraClient jiraClient = new JiraClient(username, password, "https://tunesoft.atlassian.net");
+        JiraClient jiraClient = new JiraClient(username, password, "https://bocek.atlassian.net");
         jiraClient.getAllProjects().forEach(p -> System.out.println(p.getKey()));
-        List<IssueDto> issues = jiraClient.getAllDoneIssues("TN").stream().map(IssueDto::from).collect(Collectors.toList());
-
+        List<IssueDto> issues = jiraClient.getAllDoneIssues("JR").stream().map(IssueDto::from).collect(Collectors.toList());
 
         AtomicInteger count = new AtomicInteger();
 
@@ -42,7 +41,7 @@ public class ExampleController {
         }
         System.out.println(count.get());
 
-        return ResponseEntity.ok(issues);
 
+        return ResponseEntity.ok(issues);
     }
 }
