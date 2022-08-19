@@ -2,6 +2,7 @@ package com.phexum.jira.controller;
 
 import com.phexum.jira.entity.Task;
 import com.phexum.jira.exception.NotFoundException;
+import com.phexum.jira.service.PeriodService;
 import com.phexum.jira.service.TaskService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,9 +15,11 @@ import java.util.Optional;
 @RequestMapping("/task")
 public class TaskController {
     private final TaskService taskService;
+    private final PeriodService periodService;
 
-    public TaskController(TaskService taskService) {
+    public TaskController(TaskService taskService, PeriodService periodService) {
         this.taskService = taskService;
+        this.periodService = periodService;
     }
 
     @GetMapping
@@ -31,6 +34,11 @@ public class TaskController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(task.get());
+    }
+
+    @GetMapping("/period-tasks/{periodId}")
+    public ResponseEntity getPeriodTask(@PathVariable("periodId") long periodId) {
+        return ResponseEntity.ok(taskService.getPeriodTasks(periodService.findById(periodId).get()));
     }
 
     @PostMapping

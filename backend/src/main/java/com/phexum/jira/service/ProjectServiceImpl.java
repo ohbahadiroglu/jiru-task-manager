@@ -28,6 +28,7 @@ public class ProjectServiceImpl implements ProjectService {
             throw new NotFoundException("Site bulunamadı");
         }
 
+
         Site site = siteOp.get();
 
         JiraClient jiraClient = new JiraClient(site.getEmail(), site.getToken(), site.getUrl());

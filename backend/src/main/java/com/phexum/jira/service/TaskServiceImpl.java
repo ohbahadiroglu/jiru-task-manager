@@ -1,7 +1,9 @@
 package com.phexum.jira.service;
 
 
+import com.phexum.jira.entity.Period;
 import com.phexum.jira.entity.Task;
+import com.phexum.jira.exception.NotFoundException;
 import com.phexum.jira.repository.TaskRepository;
 import org.springframework.stereotype.Service;
 
@@ -12,9 +14,12 @@ import java.util.Optional;
 public class TaskServiceImpl implements TaskService {
 
     private final TaskRepository taskRepository;
+    private final PeriodService periodService;
 
-    public TaskServiceImpl(TaskRepository taskRepository) {
+
+    public TaskServiceImpl(TaskRepository taskRepository, PeriodService periodService) {
         this.taskRepository = taskRepository;
+        this.periodService = periodService;
     }
 
     @Override
@@ -28,17 +33,37 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public Optional<Task> findByCode(String code) {
-        return (taskRepository.findByCode(code));
+    public Task create(Task task) {
+        try {
+            return taskRepository.save(task);
+        } finally {
+            periodService.periodCostUpdate(task.getPeriod().getId());
+        }
     }
 
     @Override
-    public Task create(Task task) {
+    public Task update(Task task, String summary, float totalWorkHours) {
+        task.setSummary(summary);
+        task.setTotalHours(totalWorkHours);
+        periodService.periodCostUpdate(task.getPeriod().getId());
         return taskRepository.save(task);
     }
 
     @Override
     public void delete(Long id) {
+        Optional<Task> op = taskRepository.findById(id);
+        if (op.isEmpty()) {
+            throw new NotFoundException(id);
+        }
         taskRepository.deleteById(id);
+        long periodId = op.get().getPeriod().getId();
+        periodService.periodCostUpdate(periodId);
+
     }
+
+    @Override
+    public List<Task> getPeriodTasks(Period period) {
+        return taskRepository.findByPeriod(period);
+    }
+
 }

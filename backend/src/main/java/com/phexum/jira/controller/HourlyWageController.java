@@ -20,8 +20,13 @@ public class HourlyWageController {
     }
 
     @PostMapping
-    public ResponseEntity create(@Valid @RequestBody HourlyWage hourlyWage) {
+    public ResponseEntity create(@Valid @RequestBody HourlyWage hourlyWage) throws Exception {
         return ResponseEntity.ok(hourlyWageService.create(hourlyWage));
+    }
+
+    @PutMapping
+    public ResponseEntity update(@Valid @RequestBody HourlyWage hourlyWage) {
+        return ResponseEntity.ok(hourlyWageService.update(hourlyWage.getId(),hourlyWage.getAmount(), hourlyWage.getName()));
     }
 
     @GetMapping

@@ -25,6 +25,11 @@ public class AdditionalAmountController {
         return ResponseEntity.ok(additionalAmountService.create(additionalAmount));
     }
 
+    @PutMapping
+    public ResponseEntity update(@Valid @RequestBody AdditionalAmount additionalAmount) {
+        return ResponseEntity.ok(additionalAmountService.update(additionalAmount.getId(),additionalAmount.getAmount(),additionalAmount.getName()));
+    }
+
     @GetMapping
     public ResponseEntity<List<AdditionalAmount>> findAll() {
         return ResponseEntity.ok(additionalAmountService.findAll());

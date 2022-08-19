@@ -1,5 +1,6 @@
 package com.phexum.jira.controller;
 
+import com.phexum.jira.entity.HourlyWage;
 import com.phexum.jira.entity.Period;
 import com.phexum.jira.entity.Site;
 import com.phexum.jira.exception.NotFoundException;
@@ -23,6 +24,11 @@ public class PeriodController {
     @PostMapping
     public ResponseEntity create(@Valid @RequestBody Period period) {
         return ResponseEntity.ok(periodService.create(period));
+    }
+
+    @PutMapping
+    public ResponseEntity update(@Valid @RequestBody Period period) {
+        return ResponseEntity.ok(periodService.update(period.getId(), period.getName(),period.getState(), period.getHourlyWage().getId()));
     }
 
     @GetMapping

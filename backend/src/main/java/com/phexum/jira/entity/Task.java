@@ -17,13 +17,13 @@ public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
+
     @NotBlank
     private String summary;
     @NotNull
     private float totalHours;
     @NotBlank
-    private String code;
+    private String key;
 
     @NotNull
     @ManyToOne

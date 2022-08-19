@@ -1,5 +1,6 @@
 package com.phexum.jira.service;
 
+import com.phexum.jira.entity.Period;
 import com.phexum.jira.entity.Task;
 
 import java.util.List;
@@ -11,11 +12,11 @@ public interface TaskService {
 
     Optional<Task> findById(Long id);
 
-    Optional<Task> findByCode(String code);
-
     Task create(Task task);
+
+    Task update(Task task, String summary, float totalWorkHours);
 
     void delete(Long id);
 
-
+    List<Task> getPeriodTasks(Period period);
 }

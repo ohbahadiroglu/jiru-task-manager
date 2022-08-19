@@ -1,8 +1,8 @@
 package com.phexum.jira.entity;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.engine.internal.Cascade;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -10,6 +10,7 @@ import javax.validation.constraints.NotBlank;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 public class Period {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -18,6 +19,7 @@ public class Period {
     private String name;
     @NotBlank(message = "State can not be Blank")
     private String state;
+    private double cost;
 
     @ManyToOne
     private HourlyWage hourlyWage;
