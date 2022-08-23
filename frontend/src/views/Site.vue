@@ -33,6 +33,7 @@ export default {
   async mounted() {
     this.loadSites();
   },
+
   methods: {
     async loadSites() {
       const { data } = await Site.get();
