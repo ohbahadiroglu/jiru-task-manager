@@ -11,4 +11,6 @@ public interface SiteService {
     List<Site> findAll();
     Optional<Site> findById(Long id);
     void delete(Long id);
+
+    Site update(Site site);
 }

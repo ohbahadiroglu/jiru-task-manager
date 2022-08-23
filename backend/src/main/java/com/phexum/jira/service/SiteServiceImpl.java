@@ -40,4 +40,14 @@ public class SiteServiceImpl implements SiteService {
 
         siteRepository.deleteById(id);
     }
+
+    @Override
+    public Site update(Site site) {
+
+        Optional<Site> op = siteRepository.findById(site.getId());
+        if (op.isEmpty()) {
+            throw new NotFoundException(site.getId());
+        }
+        return siteRepository.save(site);
+    }
 }
