@@ -1,7 +1,8 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import HomeView from "../views/Home.vue";
-import NewView from "../views/New.vue";
+import HourlyWageView from "../views/HourlyWage.vue";
+
 
 Vue.use(VueRouter);
 
@@ -19,9 +20,9 @@ const routes = [
     },
   },
   {
-    path: "/new",
-    name: "new",
-    component: NewView,
+    path: "/wage",
+    name: "wage",
+    component: HourlyWageView
   },
 ];
 
