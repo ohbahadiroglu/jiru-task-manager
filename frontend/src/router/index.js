@@ -1,7 +1,9 @@
+import Project from "@/clients/Project";
 import Vue from "vue";
 import VueRouter from "vue-router";
 import HomeView from "../views/Home.vue";
 import HourlyWageView from "../views/HourlyWage.vue";
+import ProjectView from "../views/Project.vue"
 
 Vue.use(VueRouter);
 
@@ -22,6 +24,11 @@ const routes = [
     path: "/wage",
     name: "wage",
     component: HourlyWageView,
+  },
+  {
+    path: "/project",
+    name: "project",
+    component: ProjectView,
   },
 ];
 
