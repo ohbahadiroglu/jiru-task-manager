@@ -23,7 +23,12 @@ public class SiteController {
 
     @PostMapping
     public ResponseEntity create(@Valid @RequestBody Site site) {
-            return ResponseEntity.ok(siteService.create(site));
+        return ResponseEntity.ok(siteService.create(site));
+    }
+
+    @PutMapping
+    public ResponseEntity update(@Valid @RequestBody Site site) {
+        return ResponseEntity.ok(siteService.update(site));
     }
 
     @GetMapping
@@ -33,7 +38,7 @@ public class SiteController {
 
     @GetMapping("/{id}")
     public ResponseEntity findById(@PathVariable("id") Long id) {
-        Optional<Site> op = siteService.findById(id);
+        Optional<Site> op = this.siteService.findById(id);
         if (op.isEmpty()) {
             return ResponseEntity.notFound().build();
         }

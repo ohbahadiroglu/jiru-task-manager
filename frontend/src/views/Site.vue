@@ -7,6 +7,7 @@
 
       <button @click="remove(site)" class="btn btn-danger btn-sm">Sil</button>
       <button @click="selectSite(site)" class="btn btn-success btn-sm">Düzenle</button>
+
     </div>
 
     <div>
