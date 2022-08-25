@@ -2,7 +2,7 @@
   <div class="site">
 
     <div v-for="site in sites" :key="site.id">
-    <router-link :to="{path:'/project',query:{siteId: site.id}}">{{ site.url }}<br>{{ site.email }}</router-link>>
+    <router-link :to="{path:'/project',query:{siteId: site.id}}">{{ site.url }} {{ site.email }}</router-link>>
       
 
       <button @click="remove(site)" class="btn btn-danger btn-sm">Sil</button>
