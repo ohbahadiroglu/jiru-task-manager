@@ -4,6 +4,7 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/site">Site</router-link> | 
       <router-link to="/wage">Wage</router-link>
+      <router-link to="/period">Period</router-link>
     </nav>
     <router-view />
   </div>
