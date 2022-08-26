@@ -2,11 +2,11 @@
     <div class="site">
 
         <div v-for="site in sites" :key="site.id">
-            {{ site.url }} {{ site.email }}
+    <router-link :to="{path:'/project',query:{siteId: site.id}}">{{ site.url }} {{ site.email }}</router-link>>
+      
 
-            <button @click="remove(site)" class="btn btn-danger btn-sm">Sil</button>
-            <button @click="selectSite(site)" class="btn btn-success btn-sm">Düzenle</button>
-        </div>
+      <button @click="remove(site)" class="btn btn-danger btn-sm">Sil</button>
+      <button @click="selectSite(site)" class="btn btn-success btn-sm">Düzenle</button></div>
 
         <div>
             <input v-model="site.url" placeholder="site URL" />
@@ -17,17 +17,15 @@
 
         </div>
         {{ message }}
-        <AddtionalAmount/>
+
     </div>
 </template>
 
 <script>
 import Site from "@/clients/Site"
-import AddtionalAmount from "./AddtionalAmount.vue";
 
 export default {
     name: "SiteView",
-    components: { AddtionalAmount },
     data() {
         return { sites: [], site: {}, message: "" };
     },
