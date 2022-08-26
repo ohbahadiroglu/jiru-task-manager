@@ -7,6 +7,7 @@
     <div v-for="i in issues" :key="i.key">
       {{ i.key }}
     </div>
+    
   </div>
 </template>
 
@@ -14,7 +15,6 @@
 import Test from "@/clients/Example";
 export default {
   name: "HomeView",
-  components: {},
   data() {
     return { issues: [] };
   },
