@@ -1,11 +1,13 @@
 <template>
   <div class="site">
 
-    <div v-for="i in sites" :key="i">
-      {{ i.url }} {{ i.email }}
+    <div v-for="site in sites" :key="site.id">
+    <router-link :to="{path:'/project',query:{siteId: site.id}}">{{ site.url }} {{ site.email }}</router-link>>
+      
 
-      <button @click="remove(i)" class="btn btn-danger btn-sm">Sil</button>
-      <button @click="selectSite(i)" class="btn btn-success btn-sm">Düzenle</button>
+      <button @click="remove(site)" class="btn btn-danger btn-sm">Sil</button>
+      <button @click="selectSite(site)" class="btn btn-success btn-sm">Düzenle</button>
+
     </div>
 
     <div>

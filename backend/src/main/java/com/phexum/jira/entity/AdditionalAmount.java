@@ -3,10 +3,8 @@ package com.phexum.jira.entity;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.lang.model.type.PrimitiveType;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Entity
