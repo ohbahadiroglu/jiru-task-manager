@@ -8,6 +8,11 @@
       <button @click="remove(site)" class="btn btn-danger btn-sm">Sil</button>
       <button @click="selectSite(site)" class="btn btn-success btn-sm">Düzenle</button>
 
+    <div v-for="i in sites" :key="i">
+      {{ i.url }} {{ i.email }}
+
+      <button @click="remove(i)" class="btn btn-danger btn-sm">Sil</button>
+      <button @click="selectSite(i)" class="btn btn-success btn-sm">Düzenle</button>
     </div>
 
     <div>
