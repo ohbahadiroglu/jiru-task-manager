@@ -1,10 +1,8 @@
 <template>
     <div class="project">
-    
         <div v-for="project in projects" :key="project.id">
             {{project.name}} {{project.key}} 
         </div>
-        
     </div>
 </template>
 <script>

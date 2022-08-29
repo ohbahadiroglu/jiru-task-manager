@@ -33,6 +33,7 @@ export default {
     components: [JiraTask],
     data() {
         return { sites: [], site: {}, message: "" };
+
     },
     async mounted() {
         this.loadSites();

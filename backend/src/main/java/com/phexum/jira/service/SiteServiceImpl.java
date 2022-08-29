@@ -1,11 +1,11 @@
 package com.phexum.jira.service;
 
+import com.atlassian.jira.rest.client.api.RestClientException;
+import com.atlassian.jira.rest.client.api.domain.Session;
 import com.phexum.jira.entity.Site;
 import com.phexum.jira.exception.NotFoundException;
 import com.phexum.jira.repository.JiraClient;
 import com.phexum.jira.repository.SiteRepository;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,8 +19,19 @@ public class SiteServiceImpl implements SiteService {
         this.siteRepository = siteRepository;
     }
 
-    public Site create(Site site) {
-        return siteRepository.save(site);
+    public Site create(Site site) throws RestClientException {
+        try{
+            JiraClient jiraClient = new JiraClient(site.getEmail(), site.getToken(), site.getUrl());
+            Session x =  jiraClient.getRestClient().getSessionClient().getCurrentSession().claim();
+            return siteRepository.save(site);
+
+        } catch (RestClientException e){
+            if(e.getMessage().equals("org.codehaus.jettison.json.JSONException: JSONObject[\"loginInfo\"] not found.")){
+                return siteRepository.save(site);
+            }
+            throw e ;
+
+        }
     }
 
     public List<Site> findAll() {
