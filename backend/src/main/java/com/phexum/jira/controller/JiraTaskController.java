@@ -1,14 +1,9 @@
 package com.phexum.jira.controller;
 
-import com.phexum.jira.dto.JiraTaskRequestModel;
 import com.phexum.jira.service.JiraTaskService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.concurrent.ExecutionException;
 
 @RestController
@@ -21,8 +16,8 @@ public class JiraTaskController {
         this.jiraTaskService = jiraTaskService;
     }
 
-    @GetMapping
-    public ResponseEntity getAllIssues(@RequestBody JiraTaskRequestModel requestModel) throws ExecutionException, InterruptedException {
-        return ResponseEntity.ok(jiraTaskService.getAllIssues(requestModel.getProjectKey(), requestModel.getSiteId()));
+    @GetMapping("/{siteId}/{projectKey}")
+    public ResponseEntity getAllIssues(@PathVariable("siteId") long siteId,@PathVariable("projectKey") String projectKey) throws ExecutionException, InterruptedException {
+        return ResponseEntity.ok(jiraTaskService.getAllIssues(projectKey,siteId));
     }
 }

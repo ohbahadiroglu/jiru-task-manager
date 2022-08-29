@@ -1,10 +1,10 @@
 <template>
     <div class="project">
-        <ul>
+    
         <div v-for="project in projects" :key="project.id">
-            <li>{{project.name}} {{project.key}} </li>
+            {{project.name}} {{project.key}} 
         </div>
-        </ul>
+        
     </div>
 </template>
 <script>

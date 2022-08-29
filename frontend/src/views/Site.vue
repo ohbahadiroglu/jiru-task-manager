@@ -19,74 +19,73 @@
 
     </div>
     {{ message }}
-
+    <JiraTask/>
   </div>
 </template>
 
 <script>
 import Site from "@/clients/Site"
+import JiraTask from "@/components/JiraTask.vue";
 
 
 export default {
-  name: "SiteView",
-  data() {
-    return { sites: [], site: {}, message: "" };
-  },
-  async mounted() {
-    this.loadSites();
-  },
-
-  methods: {
-    async loadSites() {
-      const { data } = await Site.get();
-      this.sites = data;
+    name: "SiteView",
+    components: [JiraTask],
+    data() {
+        return { sites: [], site: {}, message: "" };
     },
-
-    async create() {
-      try {
-        await Site.create(this.site);
-        this.site = {};
+    async mounted() {
         this.loadSites();
-
-        this.message = ("Site kaydetme işlemi başarılı")
-      } catch (error) {
-        this.message = ("Hata var ");
-      }
-
     },
-    async update() {
-
-      try {
-        await Site.update(this.site);
-        this.site = {};
-        this.loadSites();
-
-        this.message = ("Site güncelleme işlemi başarılı")
-      } catch (error) {
-        this.message = ("Hata var ");
-      }
+    methods: {
+        async loadSites() {
+            const { data } = await Site.get();
+            this.sites = data;
+        },
+        async create() {
+            try {
+                await Site.create(this.site);
+                this.site = {};
+                this.loadSites();
+                this.message = ("Site kaydetme işlemi başarılı");
+            }
+            catch (error) {
+                this.message = ("Hata var ");
+            }
+        },
+        async update() {
+            try {
+                await Site.update(this.site);
+                this.site = {};
+                this.loadSites();
+                this.message = ("Site güncelleme işlemi başarılı");
+            }
+            catch (error) {
+                this.message = ("Hata var ");
+            }
+        },
+        async remove(site) {
+            try {
+                await Site.remove(site.id);
+                this.loadSites();
+                this.message = ("Site silme işlemi başarılı");
+            }
+            catch (error) {
+                this.message = ("Silinemedi Hata var ");
+            }
+        },
+        async save() {
+            if (this.site.id) {
+                this.update();
+            }
+            else {
+                this.create();
+            }
+        },
+        selectSite(site) {
+            this.site = { ...site };
+        }
     },
-    async remove(site) {
-      try {
-        await Site.remove(site.id);
-        this.loadSites();
-
-        this.message = ("Site silme işlemi başarılı")
-      } catch (error) {
-        this.message = ("Silinemedi Hata var ");
-      }
-    },
-    async save() {
-      if (this.site.id) {
-        this.update();
-      } else {
-        this.create();
-      }
-    },
-    selectSite(site) {
-      this.site =  {...site} ;
-    }
-
-  }
+    components: { JiraTask }
 }
 </script>
