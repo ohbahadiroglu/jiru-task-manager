@@ -4,6 +4,10 @@ export default{
     get(){
         return axios.get("/period");
     },
+    getPeriodId(periodId){
+        return axios.get(`/period/${periodId}`);
+    },
+    
     create(period){
         return axios.post("/period",period);
     },

@@ -20,7 +20,6 @@ public class PeriodServiceImpl implements PeriodService {
     private final PeriodRepository periodRepository;
     private final TaskRepository taskRepository;
     private final AdditionalAmountRepository additionalAmountRepository;
-
     private final HourlyWageRepository hourlyWageRepository;
 
     public PeriodServiceImpl(PeriodRepository periodRepository, TaskRepository taskRepository, AdditionalAmountRepository additionalAmountRepository, HourlyWageRepository hourlyWageRepository) {
@@ -44,19 +43,20 @@ public class PeriodServiceImpl implements PeriodService {
     }
 
     @Override
-    public Period update(long periodId, String name,String state, long hourlyWageId) {
+    public Period update(long periodId, String name, String state, long hourlyWageId) {
         Period period = periodRepository.findById(periodId).get();
         period.setName(name);
+        period.setState(state);
         period.setHourlyWage(hourlyWageRepository.findById(hourlyWageId).get());
         periodRepository.save(period);
         periodCostUpdate(periodId);
         return period;
     }
 
-    public void periodCostUpdate(long periodId){
+    public void periodCostUpdate(long periodId) {
         double total = 0;
         Period period = periodRepository.findById(periodId).get();
-         HourlyWage hourlyWage =period.getHourlyWage();
+        HourlyWage hourlyWage = period.getHourlyWage();
         List<Task> tasks = taskRepository.findByPeriod(period);
         List<AdditionalAmount> additionalAmounts = additionalAmountRepository.findByPeriod(period);
 
@@ -65,17 +65,20 @@ public class PeriodServiceImpl implements PeriodService {
         }
 
         for (Task task : tasks) {
-            total += (task.getTotalHours()*hourlyWage.getAmount());
+            total += (task.getTotalHours() * hourlyWage.getAmount());
         }
         period.setCost(total);
         periodRepository.save(period);
     }
 
-
     public void delete(Long id) {
         Optional<Period> op = periodRepository.findById(id);
         if (op.isEmpty()) {
             throw new NotFoundException(id);
+        }
+        List<AdditionalAmount> additionalAmounts = additionalAmountRepository.findByPeriod(op.get());
+        for (AdditionalAmount a : additionalAmounts) {
+            additionalAmountRepository.delete(a);
         }
         periodRepository.deleteById(id);
     }

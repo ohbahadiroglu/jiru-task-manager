@@ -1,18 +1,20 @@
 <template>
-    <div  class="period">
+    <div class="period">
         <div class="d-flex justify-content-start mb-3">
             <select v-model="period">
                 <option v-for="period in periods" :value="period">{{ period.name }}</option>
             </select>
-        </div>
-        
-        <div  v-for="period in periods" :key="period.id">
-            {{ period.name }} {{ period.state }} {{ period.hourlyWage.name }}
-            <button @click=remove(period) class="btn btn-danger btn-sm">sil</button>
-            <button @click=selectPeriod(period) class="btn btn-success btn-sm">düzenle </button>
+            <div>
+                {{ period.name }} {{ period.state }}
+                <button @click=remove(period) class="btn btn-danger btn-sm">sil</button>
+                <button @click="(selectPeriod(period)), (showInput = !showInput)"
+                    class="btn btn-success btn-sm">düzenle</button>
+                <button @click="olustur" class="btn btn-primary btn-sm">Oluştur</button>
+            </div>
+
         </div>
 
-        <div >
+        <div class="d-flex justify-content-start mb-3" v-if="showInput">
             <input v-model="period.name" placeholder="name">
             <input v-model="period.state" placeholder="state">
             <select v-model="period.hourlyWage">
@@ -21,22 +23,29 @@
             <button @click="save()" class="btn btn-success">Kaydet</button>
         </div>
         {{ message }}
-        <AddtionalAmount />
+        <AdditionalAmount :period="period" />
     </div>
 </template>
+
+<style>
+.period {
+    padding-left: 5%;
+}
+</style>
 
 <script>
 import Period from "@/clients/Period";
 import HourlyWage from "@/clients/HourlyWage";
-import AddtionalAmount from "./AddtionalAmount.vue";
+import AdditionalAmount from "./AddtionalAmount.vue";
 export default {
     name: "PeriodView",
-    components: { AddtionalAmount },
+    components: { AdditionalAmount },
     data() {
         return {
             periods: [],
             period: {},
             hourlyWages: [],
+            showInput: false,
             message: ""
         };
     },
@@ -58,6 +67,7 @@ export default {
                 await Period.create(this.period);
                 this.period = {};
                 this.loadPeriods();
+                this.showInput = !this.showInput;
                 this.message = "period oluşturuldu";
             }
             catch (error) {
@@ -70,6 +80,7 @@ export default {
                 this.period = {};
                 this.hourlyWage = {};
                 this.loadPeriods();
+                this.showInput = !this.showInput;
                 this.message = "period güncellendi";
             }
             catch (error) {
@@ -96,7 +107,11 @@ export default {
             catch (error) {
                 this.message = "period silinemedi hata var";
             }
-        }
+        },
+         olustur(){
+           this.period={};
+           this.showInput=!this.showInput;
+       } 
     }
 
 }
