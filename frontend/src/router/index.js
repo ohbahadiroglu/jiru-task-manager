@@ -2,6 +2,8 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import HomeView from "../views/Home.vue";
 import HourlyWageView from "../views/HourlyWage.vue";
+import AdditionalAmount from "../views/AddtionalAmount.vue";
+import Period from "../views/Period.vue";
 import ProjectView from "../views/Project.vue"
 
 
@@ -26,10 +28,19 @@ const routes = [
     component: HourlyWageView,
   },
   {
+    path: "/additional",
+    name: "additional",
+    component: AdditionalAmount,
+  },
+  {
+    path: "/period",
+    name: "period",
+    component: Period,
+  },
+  {
     path: "/project",
     name: "project",
     component: ProjectView,
-
   },
 ];
 

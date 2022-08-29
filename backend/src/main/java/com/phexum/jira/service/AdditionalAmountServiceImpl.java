@@ -3,7 +3,6 @@ package com.phexum.jira.service;
 import com.phexum.jira.entity.AdditionalAmount;
 import com.phexum.jira.exception.NotFoundException;
 import com.phexum.jira.repository.AdditionalAmountRepository;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,7 +22,6 @@ public class AdditionalAmountServiceImpl implements AdditionalAmountService {
         additionalAmountRepository.save(additionalAmount);
         periodService.periodCostUpdate(additionalAmount.getPeriod().getId());
         return additionalAmount;
-
     }
 
     public AdditionalAmount update(long id, double amount, String name) {

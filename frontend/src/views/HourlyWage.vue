@@ -62,15 +62,13 @@ export default {
                 await HourlyWage.remove(wage.id);
                 this.loadWages();
             } catch (error) {
-                this.message="Silme işlemi başarısız";
+                this.message="Silme işlemi başarısız, period ile ilişkili olabilir";
             }
 
         },
         selectWage(wage) {
             this.wage = { ...wage };
         }
-
-
 
     }
 }
