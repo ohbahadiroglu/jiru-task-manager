@@ -1,6 +1,6 @@
 <template>
     <div class="HourlyWage">
-        <div v-for="wage in wages" :key="wage">
+        <div v-for="wage in wages" :key="wage.id">
             {{ wage.name }} {{ wage.amount }}
             <button @click="remove(wage)" class="btn btn-danger btn-sm">Sil</button>
             <button @click="selectWage(wage)" class="btn btn-success btn-sm">Düzenle</button>

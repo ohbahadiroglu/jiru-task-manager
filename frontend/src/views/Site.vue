@@ -19,18 +19,14 @@
   
       </div>
       {{ message }}
-      <JiraTask/>
     </div>
   </template>
   
   <script>
-  import Site from "@/clients/Site"
-  import JiraTask from "@/components/JiraTask.vue";
-  
+  import Site from "@/clients/Site"  
   
   export default {
       name: "SiteView",
-      components: [JiraTask],
       data() {
           return { sites: [], site: {}, message: "" };
       },
@@ -86,6 +82,6 @@
               this.site = { ...site };
           }
       },
-      components: { JiraTask }
+      
   }
   </script>

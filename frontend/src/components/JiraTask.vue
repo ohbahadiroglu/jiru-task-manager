@@ -1,8 +1,5 @@
 <template>
     <div>
-        <input v-model="jiraRequestModel.projectKey">
-        <input v-model="jiraRequestModel.siteId">
-        <button @click="loadJiraTasks">get jira tasks</button>
         <div v-for="(jiraTask,i) in jiraTasks" :key="i">
             {{jiraTask.summary}}
         </div>
@@ -16,10 +13,13 @@
         data(){
             return { jiraTasks: [], jiraTask: {},jiraRequestModel:{}, message: "" };
         },
+        async mounted() {
+            this.loadJiraTasks();
+        },
         methods:{
             async loadJiraTasks(){
-                console.log(this.jiraRequestModel.projectKey);
-                console.log(this.jiraRequestModel.siteId);
+                this.jiraRequestModel.projectKey=this.$route.query.projectKey
+                this.jiraRequestModel.siteId=this.$route.query.siteId
                 const {data} =  await JiraTaskClient.getAllJiraTask(this.jiraRequestModel);
                 console.log(data);
                 this.jiraTasks= data;
