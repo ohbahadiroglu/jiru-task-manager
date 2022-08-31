@@ -26,8 +26,6 @@
 </style>
 <script>
 import AdditionalAmount from "@/clients/AdditionalAmount";
-import Period from "@/clients/Period";
-import { faSleigh } from "@fortawesome/free-solid-svg-icons";
 export default {
     name: "AdditionalAmountView",
     /* props:{

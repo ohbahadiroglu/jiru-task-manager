@@ -2,7 +2,7 @@
     <div class="period">
         <div class="d-flex justify-content-start mb-3">
             <select v-model="period">
-                <option v-for="period in periods" :value="period">{{ period.name }}</option>
+                <option v-for="period in periods" :value="period" :key="period.id">{{ period.name }}</option>
             </select>
             <div>
                 {{ period.name }} {{ period.state }}
@@ -18,11 +18,12 @@
             <input v-model="period.name" placeholder="name">
             <input v-model="period.state" placeholder="state">
             <select v-model="period.hourlyWage">
-                <option v-for="hourlyWage in hourlyWages" :value="hourlyWage">{{ hourlyWage.name }}</option>
+                <option v-for="hourlyWage in hourlyWages" :value="hourlyWage" :key="hourlyWage.id">{{ hourlyWage.name }}</option>
             </select>
             <button @click="save()" class="btn btn-success">Kaydet</button>
         </div>
         {{ message }}
+        <DbTasks :period="period" />
         <AdditionalAmount :period="period" />
     </div>
 </template>
@@ -37,9 +38,10 @@
 import Period from "@/clients/Period";
 import HourlyWage from "@/clients/HourlyWage";
 import AdditionalAmount from "./AddtionalAmount.vue";
+import DbTasks from "@/components/DbTasks.vue";
 export default {
     name: "PeriodView",
-    components: { AdditionalAmount },
+    components: { AdditionalAmount, DbTasks },
     data() {
         return {
             periods: [],
