@@ -2,38 +2,27 @@
     <div class="Additional">
         <h3 style="padding-top:30px ;" class="d-flex justify-content-start mb-3">Addtional amount bölümü</h3>
         <button @click="olustur" class="d-flex justify-content-start mb-3 btn btn-primary btn-sm">Oluştur</button>
-        <div class="d-flex justify-content-start mb-3" v-for="additional in additionals"
-            :key="additional.id">
+        <div class="d-flex justify-content-start mb-3" v-for="additional in additionals" :key="additional.id">
             {{  additional.name  }} {{  additional.amount  }}
             <button @click=remove(additional) class="btn btn-danger btn-sm">sil</button>
             <button @click="(selectAdditional(additional)), (showInputa = !showInputa)"
                 class="btn btn-success btn-sm">düzenle </button>
         </div>
 
-
         <div class="d-flex justify-content-start mb-3" v-if="showInputa">
             <input v-model="additional.name" placeholder="name">
             <input v-model="additional.amount" placeholder="amount">
-            <!-- <select v-model="additional.period">
-            <option v-for="period in periods" :value="period">{{ period.name }}</option>
-            </select> -->
             <button @click="save()" class="btn btn-success">Kaydet</button>
             <b-button pill variant="outline-danger" @click="showInputa = !showInputa">X</b-button>
         </div>
         {{  message  }}
     </div>
 </template>
-<style>
-</style>
+
 <script>
 import AdditionalAmount from "@/clients/AdditionalAmount";
 export default {
     name: "AdditionalAmountView",
-    /* props:{
-      periodId:{
-          default:1
-      }
-  }, */
     props: ['period'],
     data() {
         return { additionals: [], additional: {}, periods: [], showInputa: false, message: "", };
@@ -54,12 +43,10 @@ export default {
                 this.additionals = data;
                 this.additional.period = this.period;
             }
-
         },
 
         async create() {
             try {
-                console.log(this.additional)
                 await AdditionalAmount.create(this.additional);
                 this.additional = {};
                 this.loadAdditional(this.period.id);
@@ -71,7 +58,6 @@ export default {
         },
         async update() {
             try {
-                console.log(this.period)
                 await AdditionalAmount.update(this.additional);
                 this.additional = {};
                 this.loadAdditional(this.period.id);
