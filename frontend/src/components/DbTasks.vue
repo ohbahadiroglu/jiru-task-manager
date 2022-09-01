@@ -1,8 +1,10 @@
 <template>
     <div>
-        <div v-for="dbTask in dbTasks" :key="dbTask.id">
-            {{dbTask.summary}}
+        <div v-for="(dbTask, i) in dbTasks" :key="i">
+            <input type="checkbox" v-model="selectedTasks" :value="dbTask">
+            {{ dbTask.key }}
         </div>
+        <button @click="removeDbTask()">Cikar</button>
     </div>
 </template>
 
@@ -13,9 +15,10 @@ export default {
     name: "dbTasksComponent",
     props: ['period'],
     data() {
-        return { dbTasks: [], dbTask: {}, message: "" }
+        return { dbTasks: [], selectedTasks: [], dbTask: {}, message: "" }
     },
     mounted() {
+        this.$root.$refs.dbTasksComponent = this;
         this.loadDbTasks();
     },
     watch: {
@@ -26,8 +29,19 @@ export default {
 
     methods: {
         async loadDbTasks(periodId) {
-            const { data } = await dbTasksClient.getAllTasksOfPeriod(periodId);
-            this.dbTasks = data;
+            if (periodId != null) {
+                const { data } = await dbTasksClient.getAllTasksOfPeriod(periodId);
+                this.dbTasks = data;
+            }
+
+        },
+        async removeDbTask() {
+            for (let item of this.selectedTasks) {
+                await dbTasksClient.removeTask(item.id);
+            }
+            this.selectedTasks = [];
+            this.loadDbTasks(this.period.id);
+            this.$root.$refs.JiraTaskComponent.loadJiraTasks(this.period.id);
         }
     }
 }

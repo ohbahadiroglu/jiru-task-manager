@@ -8,6 +8,7 @@ import com.phexum.jira.repository.JiraClient;
 import com.phexum.jira.repository.TaskRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -35,6 +36,7 @@ public class JiraTaskServiceImpl implements JiraTaskService {
         Site site = siteOp.get();
         JiraClient jiraClient = new JiraClient(site.getEmail(), site.getToken(), site.getUrl());
         List<IssueDto> issues = jiraClient.getAllIssues(projectKey).stream().map(IssueDto::from).collect(Collectors.toList());
+        List<IssueDto> issuesReturn = new ArrayList<>();
         for (IssueDto issue : issues) {
             Optional<Task> optionalTask = taskRepository.findByKey(issue.getKey());
             if (optionalTask.isPresent()) {
@@ -44,9 +46,11 @@ public class JiraTaskServiceImpl implements JiraTaskService {
                 } else {
                     taskService.delete(optionalTask.get().getId());
                 }
+            }else{
+                issuesReturn.add(issue);
             }
         }
-        return issues;
+        return issuesReturn;
     }
 
 }

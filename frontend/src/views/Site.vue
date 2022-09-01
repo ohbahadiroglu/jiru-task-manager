@@ -1,29 +1,29 @@
 <template>
     <div class="site">
-  
-      <div v-for="site in sites" :key="site.id">
-      <router-link :to="{path:'/project',query:{siteId: site.id}}">{{ site.url }} {{ site.email }}</router-link>>
-        
-  
-        <button @click="remove(site)" class="btn btn-danger btn-sm">Sil</button>
-        <button @click="selectSite(site)" class="btn btn-success btn-sm">Düzenle</button>
-  
-      </div>
-  
-      <div>
-        <input v-model="site.url" placeholder="site URL" />
-        <input v-model="site.token" placeholder="site token" />
-        <input v-model="site.email" placeholder="site email" />
-  
-        <button @click="save" class="btn btn-primary">Kaydet</button>
-  
-      </div>
-      {{ message }}
+
+        <div v-for="site in sites" :key="site.id">
+            <router-link :to="{ path: '/project', query: { siteId: site.id } }">{{ site.url }} {{ site.email }}</router-link>>
+
+
+            <button @click="remove(site)" class="btn btn-danger btn-sm">Sil</button>
+            <button @click="selectSite(site)" class="btn btn-success btn-sm">Düzenle</button>
+
+        </div>
+
+        <div>
+            <input v-model="site.url" placeholder="site URL" />
+            <input v-model="site.token" placeholder="site token" />
+            <input v-model="site.email" placeholder="site email" />
+
+            <button @click="save" class="btn btn-primary">Kaydet</button>
+
+        </div>
+        {{ message }}
     </div>
-  </template>
+</template>
   
   <script>
-  import Site from "@/clients/Site"  
+  import Site from "@/clients/Site"
   
   export default {
       name: "SiteView",
@@ -82,6 +82,6 @@
               this.site = { ...site };
           }
       },
-      
+  
   }
   </script>

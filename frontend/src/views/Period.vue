@@ -1,7 +1,7 @@
 <template>
     <div class="period">
         <div class="d-flex justify-content-start mb-3">
-            <select v-model="period">
+            <select @click="onClickPeriod()" v-model="period">
                 <option v-for="period in periods" :value="period" :key="period.id">{{ period.name }}</option>
             </select>
             <div>
@@ -18,7 +18,8 @@
             <input v-model="period.name" placeholder="name">
             <input v-model="period.state" placeholder="state">
             <select v-model="period.hourlyWage">
-                <option v-for="hourlyWage in hourlyWages" :value="hourlyWage" :key="hourlyWage.id">{{ hourlyWage.name }}</option>
+                <option v-for="hourlyWage in hourlyWages" :value="hourlyWage" :key="hourlyWage.id">{{ hourlyWage.name }}
+                </option>
             </select>
             <button @click="save()" class="btn btn-success">Kaydet</button>
         </div>
@@ -110,10 +111,13 @@ export default {
                 this.message = "period silinemedi hata var";
             }
         },
-         olustur(){
-           this.period={};
-           this.showInput=!this.showInput;
-       } 
+        onClickPeriod() {
+            this.$emit('onClickPeriod', this.period)
+        },
+        olustur() {
+            this.period = {};
+            this.showInput = !this.showInput;
+        }
     }
 
 }

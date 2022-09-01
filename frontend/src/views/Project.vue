@@ -1,7 +1,8 @@
 <template>
     <div class="project">
         <div v-for="project in projects" :key="project.id">
-            <router-link :to="{path:'/PeriodTasks',query:{projectKey: project.key,siteId}}">{{project.name}} {{project.key}} </router-link>
+            <router-link :to="{ path: '/PeriodTasks', query: { projectKey: project.key, siteId } }">{{ project.name }}
+                {{ project.key }} </router-link>
         </div>
     </div>
 </template>

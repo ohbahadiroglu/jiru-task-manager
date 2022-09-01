@@ -7,7 +7,7 @@
     <div v-for="i in issues" :key="i.key">
       {{ i.key }}
     </div>
-    
+
   </div>
 </template>
 

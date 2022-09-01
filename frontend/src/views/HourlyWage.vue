@@ -49,10 +49,10 @@ export default {
             }
         },
 
-        async save(){
-            if (this.wage.id){
+        async save() {
+            if (this.wage.id) {
                 this.update(this.wage);
-            }else{
+            } else {
                 this.create(this.wage)
             }
         },
@@ -62,7 +62,7 @@ export default {
                 await HourlyWage.remove(wage.id);
                 this.loadWages();
             } catch (error) {
-                this.message="Silme işlemi başarısız, period ile ilişkili olabilir";
+                this.message = "Silme işlemi başarısız, period ile ilişkili olabilir";
             }
 
         },
