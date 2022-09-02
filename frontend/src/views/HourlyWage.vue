@@ -1,16 +1,49 @@
 <template>
     <div class="HourlyWage">
+        <v-card-text>
+          <p class="text-2xl font-weight-semibold text--primary mb-2">
+            Hourly Wages Page $
+          </p>
+          <p class="mb-2">
+            Please Add Wage name, and amount
+          </p>
+        </v-card-text>
         <div v-for="wage in wages" :key="wage.id">
             {{ wage.name }} {{ wage.amount }}
-            <button @click="remove(wage)" class="btn btn-danger btn-sm">Sil</button>
-            <button @click="selectWage(wage)" class="btn btn-success btn-sm">Düzenle</button>
+            <v-btn color="error"
+              class="mt-6" @click="remove(wage)">
+             Delete
+            </v-btn>
+            <v-btn color="primary"
+              class="mt-6" @click="selectWage(wage)">
+              Edit
+            </v-btn>
         </div>
-
         <div>
-            <input v-model="wage.name" placeholder="name">
-            <input v-model="wage.amount" placeholder="amount">
-            <button @click="save()" class="btn btn-success">Kaydet</button>
-        </div>
+        <v-text-field
+              v-model="wage.name"
+              outlined
+              label="Wage name"
+              placeholder="Wage 1"
+              hide-details
+              class="mb-3"
+            ></v-text-field>
+            <v-text-field
+              v-model="wage.amount"
+              outlined
+              label="Amount"
+              placeholder="1000$"
+              hide-details
+              class="mb-3"
+            ></v-text-field>
+        <v-btn  block
+              color="primary"
+              class="mt-6" @click="save()" >
+              Kaydet
+            </v-btn>
+  
+      </div>
+
         {{ message }}
     </div>
 </template>
@@ -49,10 +82,10 @@ export default {
             }
         },
 
-        async save() {
-            if (this.wage.id) {
+        async save(){
+            if (this.wage.id){
                 this.update(this.wage);
-            } else {
+            }else{
                 this.create(this.wage)
             }
         },
@@ -62,7 +95,7 @@ export default {
                 await HourlyWage.remove(wage.id);
                 this.loadWages();
             } catch (error) {
-                this.message = "Silme işlemi başarısız, period ile ilişkili olabilir";
+                this.message="Silme işlemi başarısız, period ile ilişkili olabilir";
             }
 
         },

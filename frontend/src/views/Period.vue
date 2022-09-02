@@ -1,30 +1,72 @@
 <template>
     <div class="period">
-        <div class="d-flex justify-content-start mb-3">
-            <select @click="onClickPeriod()" v-model="period">
-                <option v-for="period in periods" :value="period" :key="period.id">{{ period.name }}</option>
-            </select>
-            <div>
-                {{ period.name }} {{ period.state }}
-                <button @click=remove(period) class="btn btn-danger btn-sm">sil</button>
-                <button @click="(selectPeriod(period)), (showInput = !showInput)"
-                    class="btn btn-success btn-sm">düzenle</button>
-                <button @click="olustur" class="btn btn-primary btn-sm">Oluştur</button>
-            </div>
-
-        </div>
-
-        <div class="d-flex justify-content-start mb-3" v-if="showInput">
-            <input v-model="period.name" placeholder="name">
-            <input v-model="period.state" placeholder="state">
+        <v-card>
+    <v-card-title>Tasks & Periods</v-card-title>
+    <v-row class="ma-0 pb-5 px-5">
+        <v-col>
+        <h1> 
+            <v-select 
+            label="Select a Period" 
+            :items="periods"  
+            v-model="period"
+            item-text="name"
+            return-object
+            @click="onClickPeriod()"
+             ></v-select>
+        </h1>
+    </v-col>
+    <v-col>
+        <h1> </h1>
+    </v-col>
+    </v-row>
+    <div>
+                <v-btn 
+                color="error"
+                @click=remove(period)
+                class="mt-6">
+                Delete
+                </v-btn>
+                <v-btn 
+                color="primary"
+                @click="(selectPeriod(period)), (showInput = !showInput)"
+                class="mt-6">
+                Edit
+                </v-btn>
+                <v-btn 
+                color="warning"
+                @click="olustur"
+                class="mt-6">
+                Create
+                </v-btn>
+                <v-text-field
+              v-model="period.name"
+              outlined
+              label="Period Name"
+              placeholder="Period Name"
+              hide-details
+              class="mb-3"
+            ></v-text-field>
+            <v-text-field
+              v-model="period.state"
+              outlined
+              label="Period State"
+              placeholder="Period State"
+              hide-details
+              class="mb-3"
+            ></v-text-field>
             <select v-model="period.hourlyWage">
-                <option v-for="hourlyWage in hourlyWages" :value="hourlyWage" :key="hourlyWage.id">{{ hourlyWage.name }}
-                </option>
+                <option v-for="hourlyWage in hourlyWages" :value="hourlyWage" :key="hourlyWage.id">{{ hourlyWage.name }}</option>
             </select>
-            <button @click="save()" class="btn btn-success">Kaydet</button>
+        <v-btn  block
+              color="primary"
+              class="mt-6" @click="save()" >
+              Save
+            </v-btn>
         </div>
+  </v-card> 
         {{ message }}
         <DbTasks :period="period" />
+        
         <AdditionalAmount :period="period" />
     </div>
 </template>
@@ -114,10 +156,10 @@ export default {
         onClickPeriod() {
             this.$emit('onClickPeriod', this.period)
         },
-        olustur() {
-            this.period = {};
-            this.showInput = !this.showInput;
-        }
+         olustur(){
+           this.period={};
+           this.showInput=!this.showInput;
+       } 
     }
 
 }

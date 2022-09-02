@@ -1,10 +1,25 @@
 <template>
     <div class="project">
-        <div v-for="project in projects" :key="project.id">
-            <router-link :to="{ path: '/PeriodTasks', query: { projectKey: project.key, siteId } }">{{ project.name }}
-                {{ project.key }} </router-link>
-        </div>
-    </div>
+        <v-card>
+    <v-card-title>Projects</v-card-title>
+
+    <div v-for="project in projects" :key="project.id"> 
+    <v-row class="ma-0 pb-5 px-2">
+        <v-col>
+        <h1>
+            <router-link :to="{path:'/PeriodTasks',query:{projectKey: project.key,siteId}}">
+                <button type="button"  class="btn btn-primary btn-lg" > {{project.name}} </button> 
+            </router-link>            
+        </h1>
+    </v-col>
+    <v-col>
+        <h1> Key  :{{project.key}}</h1>
+    </v-col>
+    </v-row>
+    </div> 
+  </v-card>
+      
+    </div> 
 </template>
 <script>
 import Project from "@/clients/Project";
@@ -23,7 +38,9 @@ export default {
             const { data } = await Project.get(siteId);
             this.projects = data;
         }
+       
     }
 
 }
 </script>
+

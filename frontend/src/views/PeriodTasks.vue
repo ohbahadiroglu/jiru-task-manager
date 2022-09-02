@@ -1,7 +1,15 @@
 <template>
     <div>
-        <PeriodComp @onClickPeriod="myfunc" style="float:left" />
-        <JiraTaskComp :period="this.period" style="float:right" />
+        <v-card-text>
+          <p class="text-2xl font-weight-semibold text--primary mb-2">
+           Tasks Page !
+          </p>
+          <p class="mb-2">
+            Click on periods to veiw and edit periods then added desired tasks to periods
+          </p>
+        </v-card-text>
+        <PeriodComp style="float:left"/>
+        <JiraTaskComp style="float:right"/>
     </div>
 </template>
 <script>

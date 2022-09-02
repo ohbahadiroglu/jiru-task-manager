@@ -1,7 +1,7 @@
 <template>
     <div>
         <div>
-            <div v-for="(jiraTask, i) in jiraTasks" :key="i" v-if="jiraTask.status == 'Done'">
+            <div v-for="(jiraTask, i) in jiraTasks" :key="i" >
                 <input type="checkbox" v-model="selectedTasks" :value="jiraTask">
                 {{ jiraTask.key }}
             </div>
