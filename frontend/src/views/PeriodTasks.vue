@@ -1,15 +1,9 @@
 <template>
     <div>
-        <v-card-text>
-          <p class="text-2xl font-weight-semibold text--primary mb-2">
-           Tasks Page !
-          </p>
-          <p class="mb-2">
-            Click on periods to veiw and edit periods then added desired tasks to periods
-          </p>
-        </v-card-text>
-        <PeriodComp style="float:left"/>
-        <JiraTaskComp style="float:right"/>
+        <v-row no-gutters>
+            <v-col> <PeriodComp @onClickPeriod="myfunc" style="float:left" /></v-col>
+            <v-col><h1>Tasks from Jira </h1><JiraTaskComp :period="this.period" style="float:right"/></v-col>
+        </v-row>
     </div>
 </template>
 <script>

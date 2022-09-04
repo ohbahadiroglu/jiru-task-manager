@@ -1,12 +1,45 @@
 <template>
     <div>
-        <div>
-            <div v-for="(jiraTask, i) in jiraTasks" :key="i" >
-                <input type="checkbox" v-model="selectedTasks" :value="jiraTask">
-                {{ jiraTask.key }}
-            </div>
-            <button @click="createDbTask()">Periyoda Ekle</button>
-        </div>
+        <v-simple-table height="500">
+    <template v-slot:default>
+      <thead>
+        <tr>
+          <th class="text-uppercase">
+           Task Key
+          </th>
+          <th class="text-center text-uppercase">
+            Summary
+          </th>
+          <th class="text-center text-uppercase">
+            Total Hours
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+        v-for="(jiraTask, i) in jiraTasks" :key="i"
+        >
+       
+          <td>
+            <input type="checkbox" v-model="selectedTasks" :value="jiraTask">
+            {{ jiraTask.key }}
+          </td>
+          <td class="text-center">
+            {{ jiraTask.summary }}
+          </td>
+          <td class="text-center">
+            {{jiraTask.totalHours }}
+          </td>
+        </tr>
+      </tbody>
+    </template>
+  </v-simple-table>
+            <v-btn  
+            block
+            color="primary"
+            class="mt-6" @click="createDbTask()" >
+            Add to period
+            </v-btn>
     </div>
 </template>
 <script>
@@ -45,6 +78,7 @@ export default {
 
         async createDbTask() {
             for (let item of this.selectedTasks) {
+              console.log(this.period);
                 this.taskModel.key = item.key;
                 this.taskModel.summary = item.summary;
                 this.taskModel.totalHours = item.totalHours;

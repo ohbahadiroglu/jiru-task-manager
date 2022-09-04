@@ -60,7 +60,7 @@
         :icon="icons.mdiEyeOutline"
       ></nav-menu-link>
       <nav-menu-link
-        title="Cards"
+        title="About Us"
         :to="{ name: 'cards' }"
         :icon="icons.mdiCreditCardOutline"
       ></nav-menu-link>

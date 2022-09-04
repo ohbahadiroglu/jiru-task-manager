@@ -1,10 +1,43 @@
 <template>
     <div>
-        <div v-for="(dbTask, i) in dbTasks" :key="i">
+        <v-simple-table>
+    <template v-slot:default height="250">
+      <thead>
+        <tr>
+          <th class="text-uppercase">
+           Task Key
+          </th>
+          <th class="text-center text-uppercase">
+            Summary
+          </th>
+          <th class="text-center text-uppercase">
+            Total Hours
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+        v-for="(dbTask, i) in dbTasks" :key="i"
+        >
+          <td>
             <input type="checkbox" v-model="selectedTasks" :value="dbTask">
             {{ dbTask.key }}
-        </div>
-        <button @click="removeDbTask()">Cikar</button>
+          </td>
+          <td class="text-center">
+            {{ dbTask.summary }}
+          </td>
+          <td class="text-center">
+            {{dbTask.totalHours }}
+          </td>
+        </tr>
+      </tbody>
+    </template>
+  </v-simple-table>
+  <v-btn  block
+              color="primary"
+              class="mt-6" @click="removeDbTask()" >
+              cikar
+             </v-btn>
     </div>
 </template>
 

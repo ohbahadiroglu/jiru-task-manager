@@ -37,6 +37,15 @@
             </v-icon>
           </a>
           <theme-switcher></theme-switcher>
+          <a
+            href="https://id.atlassian.com/manage-profile/security/api-tokens"
+            target="_blank"
+            rel="nofollow"
+          >
+            <v-icon class="ms-6 me-4">
+              {{ icons.mdiAccountDetailsOutline }}
+            </v-icon>
+          </a>
         </div>
       </div>
     </v-app-bar>
@@ -71,16 +80,15 @@
 
 <script>
 import { ref } from '@vue/composition-api'
-import { mdiMagnify, mdiBellOutline, mdiGithub } from '@mdi/js'
+import { mdiMagnify, mdiBellOutline, mdiGithub,mdiAccountDetailsOutline } from '@mdi/js'
 import VerticalNavMenu from './components/vertical-nav-menu/VerticalNavMenu.vue'
 import ThemeSwitcher from './components/ThemeSwitcher.vue'
-import AppBarUserMenu from './components/AppBarUserMenu.vue'
+
 
 export default {
   components: {
     VerticalNavMenu,
     ThemeSwitcher,
-    AppBarUserMenu,
   },
   setup() {
     const isDrawerOpen = ref(null)
@@ -93,6 +101,7 @@ export default {
         mdiMagnify,
         mdiBellOutline,
         mdiGithub,
+        mdiAccountDetailsOutline,
       },
     }
   },

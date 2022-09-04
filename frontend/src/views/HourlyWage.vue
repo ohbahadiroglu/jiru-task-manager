@@ -8,8 +8,32 @@
             Please Add Wage name, and amount
           </p>
         </v-card-text>
-        <div v-for="wage in wages" :key="wage.id">
-            {{ wage.name }} {{ wage.amount }}
+        <v-simple-table>
+    <template v-slot:default height="250">
+      <thead>
+        <tr>
+          <th class="text-uppercase">
+           Wage name
+          </th>
+          <th class="text-center text-uppercase">
+            Wage Amount
+          </th>
+          <th class="text-center text-uppercase">
+            Options
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+        v-for="wage in wages" :key="wage.id"
+        >
+          <td>
+            {{  wage.name }}
+          </td>
+          <td class="text-center">
+            {{ wage.amount }}
+          </td>
+          <td> 
             <v-btn color="error"
               class="mt-6" @click="remove(wage)">
              Delete
@@ -18,7 +42,11 @@
               class="mt-6" @click="selectWage(wage)">
               Edit
             </v-btn>
-        </div>
+          </td>
+        </tr>
+      </tbody>
+    </template>
+  </v-simple-table>
         <div>
         <v-text-field
               v-model="wage.name"
@@ -41,9 +69,7 @@
               class="mt-6" @click="save()" >
               Kaydet
             </v-btn>
-  
       </div>
-
         {{ message }}
     </div>
 </template>

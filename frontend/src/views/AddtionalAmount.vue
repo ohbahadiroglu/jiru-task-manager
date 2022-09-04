@@ -1,20 +1,79 @@
 <template>
     <div class="Additional">
-        <h3 style="padding-top:30px ;" class="d-flex justify-content-start mb-3">Addtional amount bölümü</h3>
-        <button @click="olustur" class="d-flex justify-content-start mb-3 btn btn-primary btn-sm">Oluştur</button>
-        <div class="d-flex justify-content-start mb-3" v-for="additional in additionals" :key="additional.id">
-            {{  additional.name  }} {{  additional.amount  }}
-            <button @click=remove(additional) class="btn btn-danger btn-sm">sil</button>
-            <button @click="(selectAdditional(additional)), (showInputa = !showInputa)"
-                class="btn btn-success btn-sm">düzenle </button>
-        </div>
+        <v-card-text>
+          <p class="text-2xl font-weight-semibold text--primary mb-2">
+            Addtional amount bölümü $
+          </p>
+          <p class="mb-2">
+            Please Add additional amout
+          </p>
+        </v-card-text>
+        <v-card>
+            <v-card-title>Additional Amount </v-card-title>
+            <v-simple-table>
+    <template v-slot:default height="250">
+      <thead>
+        <tr>
+          <th class="text-uppercase">
+           Name
+          </th>
+          <th class="text-center text-uppercase">
+           Amount
+          </th>
+          <th class="text-center text-uppercase">
+           Options
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+        v-for="additional in additionals" :key="additional.id"
+        >
+          <td>
+            {{  additional.name  }}
+          </td>
+          <td class="text-center">
+            {{  additional.amount  }}
+          </td>
+          <td class="text-center">
+            <v-btn color="error"
+              class="mt-6"  @click=remove(additional)>
+             Delete
+            </v-btn>
+            <v-btn color="primary"
+              class="mt-6" @click="(selectAdditional(additional))">
+              Edit
+            </v-btn>
+          </td>
+        </tr>
+      </tbody>
+    </template>
+  </v-simple-table>
 
-        <div class="d-flex justify-content-start mb-3" v-if="showInputa">
-            <input v-model="additional.name" placeholder="name">
-            <input v-model="additional.amount" placeholder="amount">
-            <button @click="save()" class="btn btn-success">Kaydet</button>
-            <b-button pill variant="outline-danger" @click="showInputa = !showInputa">X</b-button>
-        </div>
+  <div>
+        <v-text-field
+              v-model="additional.name"
+              outlined
+              label="Additional amount name"
+              placeholder="Name 1"
+              hide-details
+              class="mb-3"
+            ></v-text-field>
+            <v-text-field
+              v-model="additional.amount"
+              outlined
+              label="Amount"
+              placeholder="1000$"
+              hide-details
+              class="mb-3"
+            ></v-text-field>
+        <v-btn  block
+              color="primary"
+              class="mt-6" @click="save()" >
+              Save
+            </v-btn>
+      </div>
+             </v-card>
         {{  message  }}
     </div>
 </template>

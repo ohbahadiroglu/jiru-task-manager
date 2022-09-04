@@ -6,38 +6,29 @@
         <v-col>
         <h1> 
             <v-select 
+            @change="onClickPeriod()"
+            v-model="period"
+            :hint="`${period.name}, ${period.cost}`"
             label="Select a Period" 
             :items="periods"  
-            v-model="period"
             item-text="name"
+            persistent-hint
             return-object
-            @click="onClickPeriod()"
-             ></v-select>
+            single-line
+             ></v-select>         
         </h1>
-    </v-col>
+       
+     </v-col>
+     
     <v-col>
-        <h1> </h1>
-    </v-col>
-    </v-row>
-    <div>
-                <v-btn 
+        <v-btn 
                 color="error"
                 @click=remove(period)
                 class="mt-6">
                 Delete
                 </v-btn>
-                <v-btn 
-                color="primary"
-                @click="(selectPeriod(period)), (showInput = !showInput)"
-                class="mt-6">
-                Edit
-                </v-btn>
-                <v-btn 
-                color="warning"
-                @click="olustur"
-                class="mt-6">
-                Create
-                </v-btn>
+    </v-col>
+    </v-row>  
                 <v-text-field
               v-model="period.name"
               outlined
@@ -54,21 +45,32 @@
               hide-details
               class="mb-3"
             ></v-text-field>
-            <select v-model="period.hourlyWage">
-                <option v-for="hourlyWage in hourlyWages" :value="hourlyWage" :key="hourlyWage.id">{{ hourlyWage.name }}</option>
-            </select>
-        <v-btn  block
+            <v-col>
+            <h1> 
+            <v-select 
+            label="Select an Hourly Wage to be added to period" 
+            :items="hourlyWages"  
+            v-model="period.hourlyWage"
+            item-text="name"
+            return-object
+             ></v-select>
+        </h1>
+    </v-col>
+             <v-btn  block
               color="primary"
               class="mt-6" @click="save()" >
               Save
-            </v-btn>
-        </div>
-  </v-card> 
-        {{ message }}
-        <DbTasks :period="period" />
+             </v-btn>
+             {{ message }}
+    </v-card>
+<h1>
+    Tasks from Period Database
+</h1>
+        <DbTasks :period="period"/>
         
-        <AdditionalAmount :period="period" />
+        <AdditionalAmount :period="period"/>
     </div>
+    
 </template>
 
 <style>
@@ -99,6 +101,7 @@ export default {
         this.loadHourlyWage();
     },
     methods: {
+       
         async loadPeriods() {
             const { data } = await Period.get();
             this.periods = data;

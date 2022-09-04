@@ -1,7 +1,7 @@
 <template>
   <div>
     <p class="text-2xl mb-6">
-      Basic Cards
+      Staj Team
     </p>
 
     <card-basic></card-basic>
