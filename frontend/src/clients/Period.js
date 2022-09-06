@@ -4,7 +4,7 @@ export default{
     get(){
         return axios.get("/period");
     },
-    getPeriodId(periodId){
+    getById(periodId){
         return axios.get(`/period/${periodId}`);
     },
     

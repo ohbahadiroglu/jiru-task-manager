@@ -13,6 +13,9 @@
           <th class="text-center text-uppercase">
             Total Hours
           </th>
+          <th class="text-center text-uppercase">
+            Additional
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -29,10 +32,17 @@
           <td class="text-center">
             {{dbTask.totalHours }}
           </td>
+          <td class="text-center">
+            <a :href="`${siteUrl}/browse/${dbTask.key}`" target="blank"></a>
+          {{ (period.hourlyWage.amount * dbTask.totalHours).toFixed(2) }}
+        </td>
         </tr>
+     
       </tbody>
+      
     </template>
   </v-simple-table>
+ 
   <v-btn  block
               color="primary"
               class="mt-6" @click="removeDbTask()" >
@@ -42,40 +52,44 @@
 </template>
 
 <script>
-import dbTasksClient from "../clients/DbTasks"
-
-export default {
-    name: "dbTasksComponent",
-    props: ['period'],
-    data() {
-        return { dbTasks: [], selectedTasks: [], dbTask: {}, message: "" }
-    },
-    mounted() {
-        this.$root.$refs.dbTasksComponent = this;
-        this.loadDbTasks();
-    },
-    watch: {
-        'period'(newValue) {
-            this.loadDbTasks(newValue.id);
-        }
-    },
-
-    methods: {
-        async loadDbTasks(periodId) {
-            if (periodId != null) {
-                const { data } = await dbTasksClient.getAllTasksOfPeriod(periodId);
-                this.dbTasks = data;
-            }
-
-        },
-        async removeDbTask() {
-            for (let item of this.selectedTasks) {
-                await dbTasksClient.removeTask(item.id);
-            }
-            this.selectedTasks = [];
-            this.loadDbTasks(this.period.id);
-            this.$root.$refs.JiraTaskComponent.loadJiraTasks(this.period.id);
-        }
-    }
-}
-</script>
+  import dbTasksClient from "../clients/DbTasks"
+  
+  export default {
+      name: "dbTasksComponent",
+      props: ['period'],
+      data() {
+          return { dbTasks: [], siteUrl:"", selectedTasks: [], dbTask: {}, message: "" }
+      },
+      mounted() {
+          this.$root.$refs.dbTasksComponent = this;
+          this.siteUrl= this.$route.query.siteUrl;
+      },
+      watch: {
+          'period'(newValue) {
+              this.loadDbTasks(newValue.id);
+          }
+      },
+  
+      methods: {
+          async loadDbTasks(periodId) {
+              if (periodId != null) {
+                  const { data } = await dbTasksClient.getAllTasksOfPeriod(periodId);
+                  this.dbTasks = data;
+                  this.$emit('dbTasksToParent', this.dbTasks)
+                  this.$root.$refs.PeriodComponent.setPeriodCost();
+              }else{
+                  this.dbTasks=[];
+              }
+  
+          },
+          async removeDbTask() {
+              for (let item of this.selectedTasks) {
+                  await dbTasksClient.removeTask(item.id);
+              }
+              this.selectedTasks = [];
+              this.loadDbTasks(this.period.id);
+              this.$root.$refs.JiraTaskComponent.loadJiraTasks(this.period.id);
+          }
+      }
+  }
+  </script>

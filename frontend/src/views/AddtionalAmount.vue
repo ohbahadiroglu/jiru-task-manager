@@ -82,80 +82,88 @@
 
 
 <script>
-import AdditionalAmount from "@/clients/AdditionalAmount";
-export default {
-    name: "AdditionalAmountView",
-    props: ['period'],
-    data() {
-        return { additionals: [], additional: {}, periods: [], showInputa: false, message: "", };
-    },
-    mounted() {
-        this.loadAdditional();
-    },
-    watch: {
-        'period'(newValue) {
-            this.loadAdditional(newValue.id);
-        }
-    },
-    methods: {
-        async loadAdditional(id) {
-            if (id != null) {
-                const { data } = await AdditionalAmount.getAdditionalPeriod(id);
-                this.additionals = data;
-                this.additional.period = this.period;
-            }
-
-        },
-
-        async create() {
-            try {
-                await AdditionalAmount.create(this.additional);
-                this.additional = {};
-                this.loadAdditional(this.period.id);
-                this.showInputa = !this.showInputa;
-                this.message = "ekmaliyet oluştuurldu"
-            } catch (error) {
-                this.message = "ekmaliyet oluşturulmadı"
-            }
-        },
-        async update() {
-            try {
-                await AdditionalAmount.update(this.additional);
-                this.additional = {};
-                this.loadAdditional(this.period.id);
-                this.showInputa = !this.showInputa;
-            } catch (error) {
-                this.message = "additional düzenlenemedi";
-            }
-        },
-
-        async save() {
-            this.additional.period = this.period;
-            if (this.additional.id) {
-                this.update();
-            } else {
-                this.create()
-            }
-        },
-
-        async remove(additional) {
-            try {
-                await AdditionalAmount.remove(additional.id);
-                this.loadAdditional(this.period.id);
-            } catch (error) {
-                this.message = "Silme işlemi başarısız";
-            }
-
-        },
-        selectAdditional(additional) {
-            this.additional = { ...additional };
-        },
-        olustur() {
-            this.additional = {};
-            this.showInputa = !this.showInputa;
-        }
-
-    }
-
-}
-</script>
+  import AdditionalAmount from "@/clients/AdditionalAmount";
+  export default {
+      name: "AdditionalAmountView",
+      props: ['period'],
+      data() {
+          return { additionals: [], additional: {}, periods: [], showInputa: false, message: "", };
+      },
+      mounted() {
+          this.$root.$refs.additionalComponent = this;
+         
+      },
+      watch: {
+          'period'(newValue) {
+              this.loadAdditional(newValue.id);
+          }
+      },
+      methods: {
+          async loadAdditional(id) {
+              if (id != null) {
+                  const { data } = await AdditionalAmount.getAdditionalPeriod(id);
+                  this.additionals = data;
+                  this.additional.period = this.period;
+                  this.$emit('additionalsToParent', this.additionals)
+                  this.$root.$refs.PeriodComponent.setPeriodCost();
+                  
+              }
+              else{
+                  this.additionals=[];
+              }
+  
+          },
+  
+          async create() {
+              try {
+                  await AdditionalAmount.create(this.additional);
+                  this.additional = {};
+                  this.loadAdditional(this.period.id);
+                  this.showInputa = !this.showInputa;
+                  this.message = "ekmaliyet oluştuurldu"
+              } catch (error) {
+                  this.message = "ekmaliyet oluşturulmadı"
+              }
+          },
+          async update() {
+              try {
+                  console.log(this.period)
+                  await AdditionalAmount.update(this.additional);
+                  this.additional = {};
+                  this.loadAdditional(this.period.id);
+                  this.showInputa = !this.showInputa;
+              } catch (error) {
+                  this.message = "additional düzenlenemedi";
+              }
+          },
+  
+          async save() {
+              this.additional.period = this.period;
+              if (this.additional.id) {
+                  this.update();
+              } else {
+                  this.create()
+              }
+          },
+  
+          async remove(additional) {
+              try {
+                  await AdditionalAmount.remove(additional.id);
+                  this.loadAdditional(this.period.id);
+              } catch (error) {
+                  this.message = "Silme işlemi başarısız";
+              }
+  
+          },
+          selectAdditional(additional) {
+              this.additional = { ...additional };
+          },
+          olustur() {
+              this.additional = {};
+              this.showInputa = !this.showInputa;
+          }
+  
+      }
+  
+  }
+  </script>

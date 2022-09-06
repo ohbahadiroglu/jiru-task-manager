@@ -8,7 +8,10 @@
         <v-col>
         <h1>
             <router-link :to="{path:'/PeriodTasks',query:{projectKey: project.key,siteId}}">
-                <button type="button"  class="btn btn-primary btn-lg" > {{project.name}} </button> 
+                <v-btn color="primary"
+              class="mt-6" @click="remove(site)">
+              {{project.name}}
+            </v-btn>
             </router-link>            
         </h1>
     </v-col>
