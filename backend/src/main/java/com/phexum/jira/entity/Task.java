@@ -29,4 +29,8 @@ public class Task {
     @ManyToOne
     private Period period;
 
+    @Lob
+    @Column(length=2147483647)
+    private String description;
+
 }

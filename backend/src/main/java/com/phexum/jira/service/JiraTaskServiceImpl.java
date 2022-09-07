@@ -1,5 +1,6 @@
 package com.phexum.jira.service;
 
+import com.atlassian.jira.rest.client.api.domain.Issue;
 import com.phexum.jira.dto.IssueDto;
 import com.phexum.jira.entity.Site;
 import com.phexum.jira.entity.Task;
@@ -37,16 +38,18 @@ public class JiraTaskServiceImpl implements JiraTaskService {
         JiraClient jiraClient = new JiraClient(site.getEmail(), site.getToken(), site.getUrl());
         List<IssueDto> issues = jiraClient.getAllIssues(projectKey).stream().map(IssueDto::from).collect(Collectors.toList());
         List<IssueDto> issuesReturn = new ArrayList<>();
+
+
         for (IssueDto issue : issues) {
             Optional<Task> optionalTask = taskRepository.findByKey(issue.getKey());
             if (optionalTask.isPresent()) {
                 if (Objects.equals(issue.getStatus(), "Done")) {
                     Task tempTask = optionalTask.get();
-                    taskService.update(tempTask, issue.getSummary(), issue.getTotalWorkHours());
+                    taskService.update(tempTask, issue.getSummary(), issue.getTotalWorkHours(), issue.getDescription());
                 } else {
                     taskService.delete(optionalTask.get().getId());
                 }
-            }else{
+            } else {
                 issuesReturn.add(issue);
             }
         }

@@ -1,5 +1,6 @@
 package com.phexum.jira.service;
 
+import com.phexum.jira.FaturaState;
 import com.phexum.jira.entity.AdditionalAmount;
 import com.phexum.jira.entity.HourlyWage;
 import com.phexum.jira.entity.Period;
@@ -43,7 +44,7 @@ public class PeriodServiceImpl implements PeriodService {
     }
 
     @Override
-    public Period update(long periodId, String name, String state, long hourlyWageId) {
+    public Period update(long periodId, String name, FaturaState state, long hourlyWageId) {
         Period period = periodRepository.findById(periodId).get();
         period.setName(name);
         period.setState(state);

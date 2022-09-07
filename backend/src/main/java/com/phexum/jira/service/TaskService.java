@@ -14,7 +14,7 @@ public interface TaskService {
 
     Task create(Task task);
 
-    Task update(Task task, String summary, float totalWorkHours);
+    Task update(Task task, String summary, float totalWorkHours, String description);
 
     void delete(Long id);
 

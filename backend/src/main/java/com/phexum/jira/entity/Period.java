@@ -6,7 +6,9 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
+import com.phexum.jira.FaturaState;
 @Entity
 @Getter
 @Setter
@@ -15,10 +17,14 @@ public class Period {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+
     @NotBlank(message = "Name can not be Blank")
     private String name;
-    @NotBlank(message = "State can not be Blank")
-    private String state;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private FaturaState state;
+
     private double cost;
 
     @ManyToOne

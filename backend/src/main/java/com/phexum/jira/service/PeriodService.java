@@ -1,6 +1,6 @@
 package com.phexum.jira.service;
 
-import com.phexum.jira.entity.HourlyWage;
+import com.phexum.jira.FaturaState;
 import com.phexum.jira.entity.Period;
 
 import java.util.List;
@@ -13,7 +13,7 @@ public interface PeriodService {
 
     Optional<Period> findById(Long id);
 
-    Period update(long periodId, String name, String state, long hourlyWageId);
+    Period update(long periodId, String name, FaturaState state, long hourlyWageId);
 
     void periodCostUpdate(long periodId);
 

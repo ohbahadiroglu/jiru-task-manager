@@ -34,7 +34,6 @@ public class ExampleController {
             System.out.println(i.getKey());
             System.out.println(i.getSummary());
             System.out.println(i.getStatus());
-            System.out.println(i.getLabels());
             System.out.println("Total Work Hours: " + i.getTotalWorkHours());
             System.out.println("-----------------------------------------------------");
             count.getAndIncrement();

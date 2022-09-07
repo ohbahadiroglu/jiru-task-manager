@@ -42,9 +42,10 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public Task update(Task task, String summary, float totalWorkHours) {
+    public Task update(Task task, String summary, float totalWorkHours, String description) {
         task.setSummary(summary);
         task.setTotalHours(totalWorkHours);
+        task.setDescription(description);
         periodService.periodCostUpdate(task.getPeriod().getId());
         return taskRepository.save(task);
     }
@@ -63,6 +64,7 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public List<Task> getPeriodTasks(Period period) {
+
         return taskRepository.findByPeriod(period);
     }
 
