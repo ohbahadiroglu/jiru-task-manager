@@ -6,7 +6,7 @@
       rounded
       dense
       outlined
-      label="Search (Enter a number)"
+      label="Search"
       single-line
       hide-details
     ></v-text-field>

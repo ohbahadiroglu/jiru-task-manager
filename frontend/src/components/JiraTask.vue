@@ -30,6 +30,9 @@
       </v-data-table>
     </v-card>
     <v-btn block color="primary" class="mt-6" @click="createDbTask()"> Add to period </v-btn>
+    <v-alert shaped prominent type="error" v-if="showAlert" dismissible> Can not add UNDONE Tasks </v-alert>
+    <v-alert shaped prominent type="error" v-if="noPeriodAlert" dismissible> Please select a Period </v-alert>
+    <v-alert type="success" v-if="success" dismissible> Task(s) Added SuccsesFully </v-alert>
   </div>
 </template>
 <script>
@@ -42,6 +45,9 @@ export default {
   props: ['period'],
   data() {
     return {
+      success: false,
+      noPeriodAlert: false,
+      showAlert: false,
       myloadingvariable: true,
       icons: {
         mdiMagnify,
@@ -86,14 +92,26 @@ export default {
     },
 
     async createDbTask() {
-      console.log(this.selectedTasks)
+      if (Object.keys(this.period).length === 0) {
+        console.log(this.noPeriodAlert)
+        this.noPeriodAlert = true
+      }
       for (let item of this.selectedTasks) {
-        this.taskModel.key = item.key
-        this.taskModel.summary = item.summary
-        this.taskModel.description = item.description
-        this.taskModel.totalHours = item.totalWorkHours
-        this.taskModel.period = this.period
-        await DbTaskClient.createTask(this.taskModel)
+        if (item.status == 'Done') {
+          this.success = true
+          this.taskModel.key = item.key
+          this.taskModel.summary = item.summary
+          this.taskModel.description = item.description
+          this.taskModel.totalHours = item.totalWorkHours
+          this.taskModel.period = this.period
+          await DbTaskClient.createTask(this.taskModel)
+          this.showAlert = false
+          this.noPeriodAlert = false
+
+          console.log(this.success)
+        } else {
+          this.showAlert = true
+        }
       }
       this.selectedTasks = []
       this.loadJiraTasks()
