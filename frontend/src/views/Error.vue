@@ -10,16 +10,19 @@
 
     <div class="page-title text-center px-5">
       <h2 class="text-2xl font-weight-semibold text--primary d-flex align-center justify-center">
-        <span class="me-2">Ooops Something is Wrong </span>
+        <span class="me-2">Ooops Something is Wrong 404 </span>
         <v-icon color="warning">
           {{ icons.mdiAlert }}
         </v-icon>
       </h2>
-      <p class="text-sm">we couldn't add the site you want</p>
+      <p class="text-sm">Please Check URL, Token, and Email that you entered agian</p>
       <v-btn color="primary" to="/" class="mb-4"> Back to home </v-btn>
 
       <div class="misc-character d-flex justify-center">
-        <v-img max-width="700" src="@/assets/images/3d-characters/error.png"></v-img>
+        <v-img
+          max-width="400"
+          src="https://media.istockphoto.com/photos/desperation-picture-id108826692?k=20&m=108826692&s=612x612&w=0&h=KWWkvTpcmQNRtnYziBh3y641xuXAYWjkhsOVnRG99jA="
+        ></v-img>
       </div>
     </div>
   </div>

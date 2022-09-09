@@ -10,10 +10,7 @@
   >
     <!-- Navigation Header -->
     <div class="vertical-nav-header d-flex items-center ps-6 pe-5 pt-5 pb-2">
-      <router-link
-        to="/"
-        class="d-flex align-center text-decoration-none"
-      >
+      <router-link to="/" class="d-flex align-center text-decoration-none">
         <v-img
           :src="require('@/assets/images/logos/phexum.png')"
           max-height="50px"
@@ -24,51 +21,20 @@
           class="app-logo me-3"
         ></v-img>
         <v-slide-x-transition>
-          <h2 class="app-title text--primary">
-            Phexum Task Manager
-          </h2>
+          <h2 class="app-title text--primary">Phexum Task Manager</h2>
         </v-slide-x-transition>
       </router-link>
     </div>
 
     <!-- Navigation Items -->
-    <v-list
-      expand
-      shaped
-      class="vertical-nav-menu-items pr-5"
-    >
-      <nav-menu-link
-        title="Dashboard"
-        :to="{ name: 'dashboard' }"
-        :icon="icons.mdiHomeOutline"
-      ></nav-menu-link>
-      <nav-menu-link
-        title="Hourly Wages"
-        :to="{ path:'/wage'}"
-        :icon="icons.mdiAccountCashOutline"
-      ></nav-menu-link>
-      
-      <nav-menu-section-title title="Useful Stuff"></nav-menu-section-title>
-      <nav-menu-link
-        title="Typography"
-        :to="{ name: 'typography' }"
-        :icon="icons.mdiAlphaTBoxOutline"
-      ></nav-menu-link>
-      <nav-menu-link
-        title="Icons"
-        :to="{ name: 'icons' }"
-        :icon="icons.mdiEyeOutline"
-      ></nav-menu-link>
-      <nav-menu-link
-        title="About Us"
-        :to="{ name: 'cards' }"
-        :icon="icons.mdiCreditCardOutline"
-      ></nav-menu-link>
-      <nav-menu-link
-        title="Tables"
-        :to="{ name: 'simple-table' }"
-        :icon="icons.mdiTable"
-      ></nav-menu-link>
+    <v-list expand shaped class="vertical-nav-menu-items pr-5">
+      <nav-menu-link title="Dashboard" :to="{ name: 'dashboard' }" :icon="icons.mdiHomeOutline"></nav-menu-link>
+      <nav-menu-link title="Hourly Wages" :to="{ path: '/wage' }" :icon="icons.mdiAccountCashOutline"></nav-menu-link>
+
+      <nav-menu-section-title title="Useful Links"></nav-menu-section-title>
+      <nav-menu-link title="Atlassian"></nav-menu-link>
+      <nav-menu-link title="Icons" :to="{ name: 'icons' }" :icon="icons.mdiEyeOutline"></nav-menu-link>
+      <nav-menu-link title="About Us" :to="{ name: 'cards' }" :icon="icons.mdiCreditCardOutline"></nav-menu-link>
     </v-list>
   </v-navigation-drawer>
 </template>
@@ -84,7 +50,7 @@ import {
   mdiFileOutline,
   mdiFormSelect,
   mdiAccountCogOutline,
- mdiAccountCashOutline,
+  mdiAccountCashOutline,
 } from '@mdi/js'
 import NavMenuSectionTitle from './components/NavMenuSectionTitle.vue'
 import NavMenuGroup from './components/NavMenuGroup.vue'
@@ -97,7 +63,6 @@ export default {
     NavMenuGroup,
     NavMenuLink,
     HourlyWage,
-    
   },
   props: {
     isDrawerOpen: {

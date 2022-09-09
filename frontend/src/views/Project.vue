@@ -8,7 +8,7 @@
           <v-col>
             <h1>
               <router-link :to="{ path: '/PeriodTasks', query: { projectKey: project.key, siteId } }">
-                <v-btn color="primary">
+                <v-btn color="primary" x-large>
                   {{ project.name }}
                 </v-btn>
               </router-link>

@@ -10,7 +10,7 @@
           rounded
           dense
           outlined
-          label="Search (Enter a number)"
+          label="Search"
           single-line
           hide-details
         ></v-text-field>
@@ -30,9 +30,9 @@
       </v-data-table>
     </v-card>
     <v-btn block color="primary" class="mt-6" @click="createDbTask()"> Add to period </v-btn>
-    <v-alert shaped prominent type="error" v-if="showAlert" dismissible> Can not add UNDONE Tasks </v-alert>
-    <v-alert shaped prominent type="error" v-if="noPeriodAlert" dismissible> Please select a Period </v-alert>
-    <v-alert type="success" v-if="success" dismissible> Task(s) Added SuccsesFully </v-alert>
+    <v-alert shaped prominent type="error" v-model="showAlert" dismissible> Can not add UNDONE Tasks </v-alert>
+    <v-alert shaped prominent type="error" v-model="noPeriodAlert" dismissible> Please select a Period </v-alert>
+    <v-alert type="success" v-model="success" dismissible> Task(s) Added SuccsesFully </v-alert>
   </div>
 </template>
 <script>
@@ -82,6 +82,7 @@ export default {
     this.$root.$refs.JiraTaskComponent = this
     this.loadJiraTasks()
   },
+
   methods: {
     async loadJiraTasks() {
       this.jiraRequestModel.projectKey = this.$route.query.projectKey
@@ -95,24 +96,23 @@ export default {
       if (Object.keys(this.period).length === 0) {
         console.log(this.noPeriodAlert)
         this.noPeriodAlert = true
-      }
-      for (let item of this.selectedTasks) {
-        if (item.status == 'Done') {
-          this.success = true
-          this.taskModel.key = item.key
-          this.taskModel.summary = item.summary
-          this.taskModel.description = item.description
-          this.taskModel.totalHours = item.totalWorkHours
-          this.taskModel.period = this.period
-          await DbTaskClient.createTask(this.taskModel)
-          this.showAlert = false
-          this.noPeriodAlert = false
-
-          console.log(this.success)
-        } else {
-          this.showAlert = true
+      } else {
+        for (let item of this.selectedTasks) {
+          if (item.status === 'Done') {
+            this.success = true
+            this.taskModel.key = item.key
+            this.taskModel.summary = item.summary
+            this.taskModel.description = item.description
+            this.taskModel.totalHours = item.totalWorkHours
+            this.taskModel.period = this.period
+            await DbTaskClient.createTask(this.taskModel)
+            console.log(this.success)
+          } else {
+            this.showAlert = true
+          }
         }
       }
+
       this.selectedTasks = []
       this.loadJiraTasks()
       this.$root.$refs.dbTasksComponent.loadDbTasks(this.period.id)
