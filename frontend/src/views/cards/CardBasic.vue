@@ -2,22 +2,11 @@
   <div>
     <v-row>
       <!-- Team -->
-      <v-col
-        md="4"
-        sm="6"
-        cols="12"
-      >
+      <v-col md="4" sm="6" cols="12">
         <v-card>
-          <v-img
-            src="@/assets/images/pages/jabagh.jpg"
-            height="300"
-          />
-          <v-card-title>
-           Mutsuz ve şanssız(JAVA)
-          </v-card-title>
-          <v-card-text>
-          This is the Team Card place our photo here
-          </v-card-text>
+          <v-img src="@/assets/images/pages/jabagh.jpg" height="300" />
+          <v-card-title> (JAVA) </v-card-title>
+          <v-card-text> This is the Team Card place our photo here </v-card-text>
         </v-card>
       </v-col>
     </v-row>

@@ -1,8 +1,6 @@
 <template>
   <v-subheader>
-    <span
-      class="title-wrapper"
-    >
+    <span class="title-wrapper">
       <span>{{ title }}</span>
     </span>
   </v-subheader>

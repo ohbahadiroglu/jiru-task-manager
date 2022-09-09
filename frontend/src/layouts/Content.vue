@@ -2,50 +2,21 @@
   <v-app>
     <vertical-nav-menu :is-drawer-open.sync="isDrawerOpen"></vertical-nav-menu>
 
-    <v-app-bar
-      app
-      flat
-      absolute
-      color="transparent"
-    >
+    <v-app-bar app flat absolute color="transparent">
       <div class="boxed-container w-full">
         <div class="d-flex align-center mx-6">
           <!-- Left Content -->
-          <v-app-bar-nav-icon
-            class="d-block d-lg-none me-2"
-            @click="isDrawerOpen = !isDrawerOpen"
-          ></v-app-bar-nav-icon>
-          <v-text-field
-            rounded
-            dense
-            outlined
-            :prepend-inner-icon="icons.mdiMagnify"
-            class="app-bar-search flex-grow-0"
-            hide-details
-          ></v-text-field>
+          <v-app-bar-nav-icon class="d-block d-lg-none me-2" @click="isDrawerOpen = !isDrawerOpen"></v-app-bar-nav-icon>
 
           <v-spacer></v-spacer>
 
           <!-- Right Content -->
-          <a
-            href="https://github.com/Phexum/jira-management"
-            target="_blank"
-            rel="nofollow"
-          >
+          <a href="https://github.com/Phexum/jira-management" target="_blank" rel="nofollow">
             <v-icon class="ms-6 me-4">
               {{ icons.mdiGithub }}
             </v-icon>
           </a>
           <theme-switcher></theme-switcher>
-          <a
-            href="https://id.atlassian.com/manage-profile/security/api-tokens"
-            target="_blank"
-            rel="nofollow"
-          >
-            <v-icon class="ms-6 me-4">
-              {{ icons.mdiAccountDetailsOutline }}
-            </v-icon>
-          </a>
         </div>
       </div>
     </v-app-bar>
@@ -56,19 +27,10 @@
       </div>
     </v-main>
 
-    <v-footer
-      app
-      inset
-      color="transparent"
-      absolute
-      height="56"
-      class="px-0"
-    >
+    <v-footer app inset color="transparent" absolute height="56" class="px-0">
       <div class="boxed-container w-full">
         <div class="mx-6 d-flex justify-space-between">
-          <span>
-            &copy; 2022 
-          </span>
+          <span> &copy; 2022 </span>
           <span class="d-sm-inline d-none">
             <a>Phexum Staj Team</a>
           </span>
@@ -80,10 +42,9 @@
 
 <script>
 import { ref } from '@vue/composition-api'
-import { mdiMagnify, mdiBellOutline, mdiGithub,mdiAccountDetailsOutline } from '@mdi/js'
+import { mdiMagnify, mdiBellOutline, mdiGithub, mdiAccountDetailsOutline } from '@mdi/js'
 import VerticalNavMenu from './components/vertical-nav-menu/VerticalNavMenu.vue'
 import ThemeSwitcher from './components/ThemeSwitcher.vue'
-
 
 export default {
   components: {

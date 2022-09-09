@@ -32,9 +32,18 @@
       <nav-menu-link title="Hourly Wages" :to="{ path: '/wage' }" :icon="icons.mdiAccountCashOutline"></nav-menu-link>
 
       <nav-menu-section-title title="Useful Links"></nav-menu-section-title>
-      <nav-menu-link title="Atlassian"></nav-menu-link>
-      <nav-menu-link title="Icons" :to="{ name: 'icons' }" :icon="icons.mdiEyeOutline"></nav-menu-link>
-      <nav-menu-link title="About Us" :to="{ name: 'cards' }" :icon="icons.mdiCreditCardOutline"></nav-menu-link>
+      <nav-menu-link
+        title="Atlassian Token"
+        href="https://id.atlassian.com/manage-profile/security/api-tokens"
+        :icon="icons.mdiCheckOutline"
+      ></nav-menu-link>
+      <nav-menu-link
+        title="Jira Software"
+        href="https://bocek.atlassian.net/jira/projects?selectedProjectType=software"
+        :icon="icons.mdiTable"
+      ></nav-menu-link>
+
+      <nav-menu-link title="About Us" :to="{ name: 'cards' }" :icon="icons.mdiAccountCogOutline"></nav-menu-link>
     </v-list>
   </v-navigation-drawer>
 </template>
@@ -51,6 +60,7 @@ import {
   mdiFormSelect,
   mdiAccountCogOutline,
   mdiAccountCashOutline,
+  mdiCheckOutline,
 } from '@mdi/js'
 import NavMenuSectionTitle from './components/NavMenuSectionTitle.vue'
 import NavMenuGroup from './components/NavMenuGroup.vue'
@@ -82,6 +92,7 @@ export default {
         mdiFormSelect,
         mdiAccountCogOutline,
         mdiAccountCashOutline,
+        mdiCheckOutline,
       },
     }
   },

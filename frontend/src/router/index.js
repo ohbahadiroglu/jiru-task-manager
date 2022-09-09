@@ -20,11 +20,7 @@ const routes = [
     name: 'dashboard',
     component: () => import('@/views/dashboard/Dashboard.vue'),
   },
-  {
-    path: '/typography',
-    name: 'typography',
-    component: () => import('@/views/typography/Typography.vue'),
-  },
+
   {
     path: '/icons',
     name: 'icons',
@@ -35,13 +31,9 @@ const routes = [
     name: 'cards',
     component: () => import('@/views/cards/Card.vue'),
   },
-  {
-    path: '/simple-table',
-    name: 'simple-table',
-    component: () => import('@/views/simple-table/SimpleTable.vue'),
-  },
-  
-  
+
+
+
   {
     path: '/error-404',
     name: 'error-404',
