@@ -6,7 +6,7 @@
     </v-card-text>
 
     <div v-for="site in sites" :key="site.id">
-      <router-link :to="{ path: '/project', query: { siteId: site.id } }">
+      <router-link :to="{ path: '/project', query: { siteId: site.id, siteUrl: site.url } }">
         <v-btn class="mt-6" outlined color="indigo">
           URL : {{ site.url }} <br />
           Email : {{ site.email }}</v-btn

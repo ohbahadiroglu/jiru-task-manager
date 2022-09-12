@@ -27,6 +27,11 @@
         loading-text="Loading... Please wait"
         group-by="status"
       >
+      <template #item.key="{ value }">
+        <a :href="`${siteUrl}/browse/${value}`">
+          {{ value }}
+        </a>
+      </template>
       </v-data-table>
     </v-card>
     <v-btn block color="primary" class="mt-6" @click="createDbTask()"> Add to period </v-btn>
@@ -65,6 +70,7 @@ export default {
       jiraTask: {},
       jiraRequestModel: {},
       message: '',
+      siteUrl:"",
       headers: [
         {
           text: 'Task Key',
@@ -80,6 +86,7 @@ export default {
   },
   async mounted() {
     this.$root.$refs.JiraTaskComponent = this
+    this.siteUrl=this.$route.query.siteUrl;
     this.loadJiraTasks()
   },
 

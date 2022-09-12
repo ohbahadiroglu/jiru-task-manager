@@ -19,6 +19,11 @@
       :search="search"
       class="elevation-1"
     >
+    <template #item.key="{ value }">
+        <a :href="`${siteUrl}/browse/${value}`">
+          {{ value }}
+        </a>
+      </template>
     </v-data-table>
 
     <v-btn block color="primary" class="mt-6" @click="removeDbTask()"> cikar </v-btn>
@@ -44,6 +49,7 @@ export default {
       selectedTasks: [],
       dbTask: {},
       message: '',
+      siteUrl:"",
       headers: [
         {
           text: 'Task Key',

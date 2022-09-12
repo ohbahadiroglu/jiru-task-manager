@@ -7,7 +7,7 @@
         <v-row class="ma-0 pb-5 px-2">
           <v-col>
             <h1>
-              <router-link :to="{ path: '/PeriodTasks', query: { projectKey: project.key, siteId } }">
+              <router-link :to="{ path: '/PeriodTasks', query: { projectKey: project.key, siteId,siteUrl } }">
                 <v-btn color="primary" x-large>
                   {{ project.name }}
                 </v-btn>
@@ -28,10 +28,11 @@ import Project from '@/clients/Project'
 export default {
   name: 'ProjectView',
   data() {
-    return { projects: [], message: '', siteId: null }
+    return { projects: [], message: '', siteId: null , siteUrl:""}
   },
   async mounted() {
     this.siteId = this.$route.query.siteId
+    this.siteUrl = this.$route.query.siteUrl
     this.loadProjects(this.siteId)
   },
   methods: {

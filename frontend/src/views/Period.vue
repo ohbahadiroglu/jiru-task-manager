@@ -136,6 +136,7 @@ export default {
   data() {
     return {
       faturaStateOptions: ['KESILDI', 'KESILMEDI', 'ODENDI'],
+      siteUrl:"",
       periods: [],
       period: {},
       hourlyWages: [],
@@ -145,6 +146,7 @@ export default {
       showInput: false,
       message: '',
       excellFields: {
+        'Jiraya Git':'jiraLink',
         Key: 'key',
         Açıklama: 'description',
         'Toplam Saat': 'totalHours',
@@ -154,6 +156,7 @@ export default {
   },
   mounted() {
     this.$root.$refs.PeriodComponent = this
+    this.siteUrl = this.$route.query.siteUrl
     this.loadPeriods()
     this.loadHourlyWage()
   },
@@ -178,9 +181,12 @@ export default {
     },
     createExcellData() {
       this.excellData = []
-      const finalSum = { cost: this.period.cost?.toFixed(2), key: 'toplam tutar' }
+      const formatted = this.numberWithCommas(parseInt(this.period.cost,10));
+      const finalSum = { cost: formatted, key: 'toplam tutar' }
+      console.log("ı am here"+formatted)
       for (let item of this.dbTasksFromChild) {
         let dbTask = {
+          jiraLink: `${this.siteUrl}/browse/${item.key}`,
           description: item.description,
           cost: (item.totalHours * this.period.hourlyWage.amount).toFixed(2),
           totalHours: item.totalHours.toFixed(2),
@@ -190,6 +196,7 @@ export default {
       }
       for (let item of this.additionalsFromChild) {
         let additional = {
+          jiraLink: '-',
           description: item.name,
           cost: item.amount.toFixed(2),
           totalHours: '-',
@@ -240,6 +247,7 @@ export default {
     async remove(period) {
       try {
         await Period.remove(period.id)
+        this.period={}
         this.loadPeriods()
         this.message = 'period silindi'
       } catch (error) {
@@ -249,12 +257,15 @@ export default {
     onClickPeriod() {
       this.$emit('onClickPeriod', this.period)
     },
+    numberWithCommas(x) {
+      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    },
     olustur() {
       this.period = {}
-      this.$root.$refs.dbTasksComponent.loadDbTasks()
-      this.$root.$refs.additionalComponent.loadAdditional()
-      this.showInput = !this.showInput
+      this.additionalsFromChild=[]
+      this.dbTasksFromChild=[]
     },
+    
   },
 }
 </script>
