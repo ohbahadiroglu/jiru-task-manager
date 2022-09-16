@@ -33,11 +33,11 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public Task create(Task task) {
+    public List<Task> create(List<Task> tasks) {
         try {
-            return taskRepository.save(task);
+            return taskRepository.saveAll(tasks);
         } finally {
-            periodService.periodCostUpdate(task.getPeriod().getId());
+            periodService.periodCostUpdate(tasks.get(0).getPeriod().getId());
         }
     }
 
@@ -51,13 +51,13 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public void delete(Long id) {
-        Optional<Task> op = taskRepository.findById(id);
+    public void delete(List<Long> idList) {
+        List<Task> op = taskRepository.findAllById(idList);
         if (op.isEmpty()) {
-            throw new NotFoundException(id);
+            throw new NotFoundException("idList: bu idlere ait hiçbir task bulunamadı");
         }
-        taskRepository.deleteById(id);
-        long periodId = op.get().getPeriod().getId();
+        taskRepository.deleteAllById(idList);
+        long periodId = op.get(0).getPeriod().getId();
         periodService.periodCostUpdate(periodId);
 
     }

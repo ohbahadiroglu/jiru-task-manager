@@ -1,19 +1,19 @@
 import axios from "axios"
 
-export default{
-    getAllTasks(){
+export default {
+    getAllTasks() {
         return axios.get("/task");
     },
-    getTaskById(taskId){
+    getTaskById(taskId) {
         return axios.get(`/task/${taskId}`)
     },
-    getAllTasksOfPeriod(periodId){
+    getAllTasksOfPeriod(periodId) {
         return axios.get(`/task/period-tasks/${periodId}`)
     },
-    createTask(taskModel){
-        return axios.post("/task",taskModel)
+    createTask(taskModelList) {
+        return axios.post("/task", taskModelList)
     },
-    removeTask(taskId){
-        return axios.delete(`/task/${taskId}`)
+    removeTask(taskIdList) {
+        return axios.post("/task/delete", taskIdList)
     }
 }

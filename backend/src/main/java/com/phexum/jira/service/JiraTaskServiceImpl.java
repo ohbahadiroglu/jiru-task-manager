@@ -1,6 +1,5 @@
 package com.phexum.jira.service;
 
-import com.atlassian.jira.rest.client.api.domain.Issue;
 import com.phexum.jira.dto.IssueDto;
 import com.phexum.jira.entity.Site;
 import com.phexum.jira.entity.Task;
@@ -47,7 +46,9 @@ public class JiraTaskServiceImpl implements JiraTaskService {
                     Task tempTask = optionalTask.get();
                     taskService.update(tempTask, issue.getSummary(), issue.getTotalWorkHours(), issue.getDescription());
                 } else {
-                    taskService.delete(optionalTask.get().getId());
+                    List<Long> idList = new ArrayList<>();
+                    idList.add(optionalTask.get().getId());
+                    taskService.delete(idList);
                 }
             } else {
                 issuesReturn.add(issue);

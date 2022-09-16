@@ -42,14 +42,14 @@ public class TaskController {
     }
 
     @PostMapping
-    public ResponseEntity create(@RequestBody Task task) {
-        return ResponseEntity.ok(taskService.create(task));
+    public ResponseEntity create(@RequestBody List<Task> tasks) {
+        return ResponseEntity.ok(taskService.create(tasks));
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> delete(@PathVariable("id") Long id) {
+    @PostMapping("/delete")
+    public ResponseEntity<String> delete(@RequestBody List<Long> idList) {
         try {
-            taskService.delete(id);
+            taskService.delete(idList);
         } catch (NotFoundException e) {
             return ResponseEntity.status(404).body(e.getMessage());
         }

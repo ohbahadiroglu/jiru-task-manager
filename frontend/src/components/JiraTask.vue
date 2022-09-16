@@ -4,37 +4,21 @@
       <v-card-title>
         Only Tasks with DONE status can be added to period<br /><br />
         <v-spacer></v-spacer>
-        <v-text-field
-          v-model="search"
-          :prepend-inner-icon="icons.mdiMagnify"
-          rounded
-          dense
-          outlined
-          label="Search"
-          single-line
-          hide-details
-        ></v-text-field>
+        <v-text-field v-model="search" :prepend-inner-icon="icons.mdiMagnify" rounded dense outlined label="Search"
+          single-line hide-details></v-text-field>
       </v-card-title>
-      <v-data-table
-        show-select
-        v-model="selectedTasks"
-        :headers="headers"
-        :items="jiraTasks"
-        item-key="key"
-        :search="search"
-        class="elevation-1"
-        loading="myloadingvariable"
-        loading-text="Loading... Please wait"
-        group-by="status"
-      >
-      <template #item.key="{ value }">
-        <a :href="`${siteUrl}/browse/${value}`">
-          {{ value }}
-        </a>
-      </template>
+      <v-data-table show-select v-model="selectedTasks" :headers="headers" :items="jiraTasks" item-key="key"
+        :search="search" class="elevation-1" loading="myloadingvariable" loading-text="Loading... Please wait"
+        group-by="status">
+        <template #item.key="{ value }">
+          <a :href="`${siteUrl}/browse/${value}`">
+            {{ value }}
+          </a>
+        </template>
       </v-data-table>
     </v-card>
-    <v-btn block color="primary" class="mt-6" @click="createDbTask()"> Add to period </v-btn>
+    <v-btn :disabled="!isAddBtnActive" block color="primary" class="mt-6" @click="createDbTask()"> Add to period
+    </v-btn>
     <v-alert shaped prominent type="error" v-model="showAlert" dismissible> Can not add UNDONE Tasks </v-alert>
     <v-alert shaped prominent type="error" v-model="noPeriodAlert" dismissible> Please select a Period </v-alert>
     <v-alert type="success" v-model="success" dismissible> Task(s) Added SuccsesFully </v-alert>
@@ -50,6 +34,7 @@ export default {
   props: ['period'],
   data() {
     return {
+      isAddBtnActive: true,
       success: false,
       noPeriodAlert: false,
       showAlert: false,
@@ -59,6 +44,7 @@ export default {
       },
       search: '',
       selectedTasks: [],
+      taskModelList: [],
       taskModel: {
         key: '',
         summary: '',
@@ -70,7 +56,7 @@ export default {
       jiraTask: {},
       jiraRequestModel: {},
       message: '',
-      siteUrl:"",
+      siteUrl: "",
       headers: [
         {
           text: 'Task Key',
@@ -86,7 +72,7 @@ export default {
   },
   async mounted() {
     this.$root.$refs.JiraTaskComponent = this
-    this.siteUrl=this.$route.query.siteUrl;
+    this.siteUrl = this.$route.query.siteUrl;
     this.loadJiraTasks()
   },
 
@@ -100,6 +86,7 @@ export default {
     },
 
     async createDbTask() {
+      this.isAddBtnActive = false
       if (Object.keys(this.period).length === 0) {
         console.log(this.noPeriodAlert)
         this.noPeriodAlert = true
@@ -112,17 +99,19 @@ export default {
             this.taskModel.description = item.description
             this.taskModel.totalHours = item.totalWorkHours
             this.taskModel.period = this.period
-            await DbTaskClient.createTask(this.taskModel)
-            console.log(this.success)
+            this.taskModelList.push(this.taskModel);
+            this.taskModel = {};
           } else {
             this.showAlert = true
           }
         }
       }
-
+      await DbTaskClient.createTask(this.taskModelList)
+      this.taskModelList = [];
       this.selectedTasks = []
       this.loadJiraTasks()
       this.$root.$refs.dbTasksComponent.loadDbTasks(this.period.id)
+      this.isAddBtnActive = true
     },
   },
 }

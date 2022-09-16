@@ -12,11 +12,11 @@ public interface TaskService {
 
     Optional<Task> findById(Long id);
 
-    Task create(Task task);
+    List<Task> create(List<Task> tasks);
 
     Task update(Task task, String summary, float totalWorkHours, String description);
 
-    void delete(Long id);
+    void delete(List<Long> idList);
 
     List<Task> getPeriodTasks(Period period);
 }
