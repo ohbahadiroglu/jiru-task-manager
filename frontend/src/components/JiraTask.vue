@@ -80,7 +80,7 @@ export default {
         },
         { text: 'Status', value: 'status', align: 'right' },
         { text: 'Summary', value: 'summary' },
-        { text: 'Total Hours', value: 'totalHours' },
+        { text: 'Total Hours', value: 'totalWorkHours' },
       ],
     }
   },

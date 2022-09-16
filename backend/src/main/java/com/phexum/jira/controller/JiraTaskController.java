@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.concurrent.ExecutionException;
 
 @RestController
-@RequestMapping("/jiraTask")
+@RequestMapping("/api/jiraTask")
 public class JiraTaskController {
     private final JiraTaskService jiraTaskService;
 

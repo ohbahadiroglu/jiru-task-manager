@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/period")
+@RequestMapping("/api/period")
 public class PeriodController {
     private final PeriodService periodService;
 

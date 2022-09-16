@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/wage")
+@RequestMapping("/api/wage")
 public class HourlyWageController {
     private final HourlyWageService hourlyWageService;
 
