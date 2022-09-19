@@ -1,24 +1,27 @@
 <template>
-  <div>
-    <v-text-field v-model="search" :prepend-inner-icon="icons.mdiMagnify" rounded dense outlined label="Search"
-      single-line hide-details></v-text-field>
-    <v-data-table show-select v-model="selectedTasks" :headers="headers" :items="dbTasks" item-key="key"
-      :search="search" class="elevation-1">
-      <template #item.key="{ value }">
-        <a :href="`${siteUrl}/browse/${value}`">
-          {{ value }}
-        </a>
-      </template>
-    </v-data-table>
+  <div style="padding: 5px">
+    <v-card>
+      <v-card-title>Döneme ait tasklar</v-card-title>
+      <v-text-field v-model="search" :prepend-inner-icon="icons.mdiMagnify" rounded dense outlined label="Arama"
+        single-line hide-details></v-text-field>
+      <v-data-table show-select v-model="selectedTasks" :headers="headers" :items="dbTasks" item-key="key"
+        :search="search" class="elevation-1">
+        <template #item.key="{ value }">
+          <a :href="`${siteUrl}/browse/${value}`">
+            {{ value }}
+          </a>
+        </template>
+      </v-data-table>
 
-    <v-btn block color="primary" class="mt-6" @click="removeDbTask()"> cikar </v-btn>
+      <v-btn block color="primary" class="mt-6" @click="removeDbTask()"> Çıkar </v-btn>
+    </v-card>
   </div>
+
 </template>
 
 <script>
 import dbTasksClient from '../clients/DbTasks'
 import { mdiMagnify } from '@mdi/js'
-import { th } from 'vuetify/lib/locale'
 
 export default {
   name: 'dbTasksComponent',
@@ -44,8 +47,8 @@ export default {
           sortable: true,
           value: 'key',
         },
-        { text: 'Summary', value: 'summary' },
-        { text: 'Total Hours', value: 'totalHours' },
+        { text: 'Açıklama', value: 'summary' },
+        { text: 'Toplam Saat', value: 'totalHours' },
       ],
     }
   },
@@ -75,7 +78,6 @@ export default {
       for (let item of this.selectedTasks) {
         this.taskIdList.push(item.id)
       }
-      console.log(this.taskIdList);
       await dbTasksClient.removeTask(this.taskIdList);
       this.taskIdList = []
       this.selectedTasks = []

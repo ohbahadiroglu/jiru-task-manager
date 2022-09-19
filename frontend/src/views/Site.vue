@@ -1,56 +1,34 @@
 <template>
   <div class="site">
     <v-card-text>
-      <p class="text-2xl font-weight-semibold text--primary mb-2">Welcome to Phexum Task Manager! 👋🏻</p>
-      <p class="mb-2">Please Add Site Information or use one of the exicting sites</p>
+      <p class="text-2xl font-weight-semibold text--primary mb-2">Phexum Task Manager! 👋🏻</p>
+      <p class="mb-2">Lütfen site bilgilerini giriniz veya kayıtlı sitelerden birine tıklayınız</p>
     </v-card-text>
 
     <div v-for="site in sites" :key="site.id">
       <router-link :to="{ path: '/project', query: { siteId: site.id, siteUrl: site.url } }">
         <v-btn class="mt-6" outlined color="indigo">
           URL : {{ site.url }} <br />
-          Email : {{ site.email }}</v-btn
-        >
+          Email : {{ site.email }}</v-btn>
       </router-link>
 
-      <v-btn color="error" class="mt-6" @click="remove(site)"> Delete </v-btn>
+      <v-btn color="error" class="mt-6" @click="remove(site)"> Sil </v-btn>
     </div>
     <div>
-      <v-text-field
-        v-model="site.url"
-        :prepend-inner-icon="icons.mdiAccessPoint"
-        outlined
-        label="URL"
-        placeholder="https://bocek.atlassian.net"
-        hide-details
-        class="mb-3"
-      ></v-text-field>
-      <v-text-field
-        v-model="site.token"
-        :prepend-inner-icon="icons.mdiLockOutline"
-        outlined
-        label="Token"
-        placeholder="ASDssad2231"
-        hide-details
-        class="mb-3"
-      ></v-text-field>
-      <v-text-field
-        v-model="site.email"
-        :prepend-inner-icon="icons.mdiEmailOutline"
-        outlined
-        label="Email"
-        placeholder="juju@gmail.com"
-        hide-details
-        class="mb-3"
-      ></v-text-field>
+      <v-text-field v-model="site.url" :prepend-inner-icon="icons.mdiAccessPoint" outlined label="URL"
+        placeholder="https://bocek.atlassian.net" hide-details class="mb-3"></v-text-field>
+      <v-text-field v-model="site.token" :prepend-inner-icon="icons.mdiLockOutline" outlined label="Token"
+        placeholder="ASDssad2231" hide-details class="mb-3"></v-text-field>
+      <v-text-field v-model="site.email" :prepend-inner-icon="icons.mdiEmailOutline" outlined label="Email"
+        placeholder="juju@phexum.com" hide-details class="mb-3"></v-text-field>
 
-      <v-btn block color="primary" class="mt-6" @click="save()"> Save </v-btn>
+      <v-btn block color="primary" class="mt-6" @click="save()"> Kaydet </v-btn>
     </div>
     {{ message }}
   </div>
 </template>
   
-  <script>
+<script>
 import Site from '@/clients/Site'
 import { mdiAccountOutline, mdiEmailOutline, mdiCellphone, mdiLockOutline, mdiAccessPoint } from '@mdi/js'
 import ErrorPage from '../views/Error.vue'

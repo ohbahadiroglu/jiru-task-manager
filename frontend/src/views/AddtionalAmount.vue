@@ -1,19 +1,16 @@
 <template>
-  <div class="Additional">
-    <v-card-text>
-      <p class="text-2xl font-weight-semibold text--primary mb-2">Addtional amount bölümü $</p>
-      <p class="mb-2">Please Add additional amout</p>
-    </v-card-text>
+  <div class="Additional" style="padding: 5px">
+
     <v-card>
-      <v-card-title>Additional Amount </v-card-title>
+      <v-card-title>Ek Maliyetler </v-card-title>
       <div>
         <v-simple-table v-if="additionals.length > 0">
           <template v-slot:default height="250">
             <thead>
               <tr>
-                <th class="text-uppercase">Name</th>
-                <th class="text-center text-uppercase">Amount</th>
-                <th class="text-center text-uppercase">Options</th>
+                <th class="text-uppercase">Ek Maliyet Adı</th>
+                <th class="text-center text-uppercase">Tutarı</th>
+                <th class="text-center text-uppercase"></th>
               </tr>
             </thead>
             <tbody>
@@ -25,14 +22,10 @@
                   {{ additional.amount }}
                 </td>
                 <td class="text-center">
-                  <v-btn small color="error" class="mt-6" @click="remove(additional)"> Delete </v-btn>
-                  <v-btn
-                    small
-                    color="primary"
-                    class="mt-6"
-                    @click="selectAdditional(additional), $bvModal.show('modal-additional')"
-                  >
-                    Edit
+                  <v-btn small color="error" class="mt-6" @click="remove(additional)"> Sil </v-btn>
+                  <v-btn small color="primary" class="mt-6"
+                    @click="selectAdditional(additional), $bvModal.show('modal-additional')">
+                    Güncelle
                   </v-btn>
                 </td>
               </tr>
@@ -45,16 +38,10 @@
       <!--Additional modal bölümü-->
       <v-btn block color="primary" class="mt-6" @click="$bvModal.show('modal-additional')">EKLE</v-btn>
 
-      <b-modal id="modal-additional" title="Additional">
-        <v-text-field
-          v-model="additional.name"
-          outlined
-          label="Additional amount name"
-          placeholder="Name 1"
-          hide-details
-          class="mb-3"
-        ></v-text-field>
-        <v-text-field v-model="additional.amount" outlined label="Amount" placeholder="1000$" hide-details class="mb-3">
+      <b-modal id="modal-additional" title="Ek Maliyet">
+        <v-text-field v-model="additional.name" outlined label="Ek maliyet adı" placeholder="Name 1" hide-details
+          class="mb-3"></v-text-field>
+        <v-text-field v-model="additional.amount" outlined label="Tutarı" placeholder="100₺" hide-details class="mb-3">
         </v-text-field>
 
         {{ message }}
@@ -62,7 +49,7 @@
           <div class="float-right">
             <b-button variant="success" size="sm" @click="save()"> KAYDET </b-button>
             <b-button variant="danger" size="sm" @click="$bvModal.hide('modal-additional'), (message = '')">
-              CLOSE
+              KAPAT
             </b-button>
           </div>
         </template>
@@ -116,7 +103,6 @@ export default {
     },
     async update() {
       try {
-        console.log(this.period)
         await AdditionalAmount.update(this.additional)
         this.additional = {}
         this.loadAdditional(this.period.id)

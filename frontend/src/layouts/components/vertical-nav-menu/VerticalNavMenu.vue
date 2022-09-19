@@ -1,25 +1,11 @@
 <template>
-  <v-navigation-drawer
-    :value="isDrawerOpen"
-    app
-    floating
-    width="260"
-    class="app-navigation-menu"
-    :right="$vuetify.rtl"
-    @input="val => $emit('update:is-drawer-open', val)"
-  >
+  <v-navigation-drawer :value="isDrawerOpen" app floating width="260" class="app-navigation-menu" :right="$vuetify.rtl"
+    @input="val => $emit('update:is-drawer-open', val)">
     <!-- Navigation Header -->
     <div class="vertical-nav-header d-flex items-center ps-6 pe-5 pt-5 pb-2">
       <router-link to="/" class="d-flex align-center text-decoration-none">
-        <v-img
-          :src="require('@/assets/images/logos/phexum.png')"
-          max-height="50px"
-          max-width="50px"
-          alt="logo"
-          contain
-          eager
-          class="app-logo me-3"
-        ></v-img>
+        <v-img :src="require('@/assets/images/logos/phexum.png')" max-height="50px" max-width="50px" alt="logo" contain
+          eager class="app-logo me-3"></v-img>
         <v-slide-x-transition>
           <h2 class="app-title text--primary">Phexum Task Manager</h2>
         </v-slide-x-transition>
@@ -28,20 +14,15 @@
 
     <!-- Navigation Items -->
     <v-list expand shaped class="vertical-nav-menu-items pr-5">
-      <nav-menu-link title="Dashboard" :to="{ name: 'dashboard' }" :icon="icons.mdiHomeOutline"></nav-menu-link>
-      <nav-menu-link title="Hourly Wages" :to="{ path: '/wage' }" :icon="icons.mdiAccountCashOutline"></nav-menu-link>
+      <nav-menu-link title="ANASAYFA" :to="{ name: 'dashboard' }" :icon="icons.mdiHomeOutline"></nav-menu-link>
+      <nav-menu-link title="ADAM SAATLİK ÜCRET TARİFESİ" :to="{ path: '/wage' }" :icon="icons.mdiAccountCashOutline">
+      </nav-menu-link>
 
       <nav-menu-section-title title="Useful Links"></nav-menu-section-title>
-      <nav-menu-link
-        title="Atlassian Token"
-        href="https://id.atlassian.com/manage-profile/security/api-tokens"
-        :icon="icons.mdiCheckOutline"
-      ></nav-menu-link>
-      <nav-menu-link
-        title="Jira Software"
-        href="https://bocek.atlassian.net/jira/projects?selectedProjectType=software"
-        :icon="icons.mdiTable"
-      ></nav-menu-link>
+      <nav-menu-link title="Atlassian Token" href="https://id.atlassian.com/manage-profile/security/api-tokens"
+        :icon="icons.mdiCheckOutline"></nav-menu-link>
+      <nav-menu-link title="Jira Software" href="https://bocek.atlassian.net/jira/projects?selectedProjectType=software"
+        :icon="icons.mdiTable"></nav-menu-link>
 
       <nav-menu-link title="About Us" :to="{ name: 'cards' }" :icon="icons.mdiAccountCogOutline"></nav-menu-link>
     </v-list>
@@ -112,6 +93,7 @@ export default {
 // ? Adjust this `translateX` value to keep logo in center when vertical nav menu is collapsed (Value depends on your logo)
 .app-logo {
   transition: all 0.18s ease-in-out;
+
   .v-navigation-drawer--mini-variant & {
     transform: translateX(-4px);
   }

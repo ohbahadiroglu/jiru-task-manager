@@ -2,13 +2,13 @@
   <div>
     <v-card>
       <v-card-title>
-        Only Tasks with DONE status can be added to period<br /><br />
+        Döneme sadece statüsü done tasklar eklenebilir<br /><br />
         <v-spacer></v-spacer>
-        <v-text-field v-model="search" :prepend-inner-icon="icons.mdiMagnify" rounded dense outlined label="Search"
+        <v-text-field v-model="search" :prepend-inner-icon="icons.mdiMagnify" rounded dense outlined label="Arama"
           single-line hide-details></v-text-field>
       </v-card-title>
       <v-data-table show-select v-model="selectedTasks" :headers="headers" :items="jiraTasks" item-key="key"
-        :search="search" class="elevation-1" loading="myloadingvariable" loading-text="Loading... Please wait"
+        :search="search" class="elevation-1" loading="myloadingvariable" loading-text="Yükleniyor... Lütfen bekleyiniz"
         group-by="status">
         <template #item.key="{ value }">
           <a :href="`${siteUrl}/browse/${value}`">
@@ -17,11 +17,12 @@
         </template>
       </v-data-table>
     </v-card>
-    <v-btn :disabled="!isAddBtnActive" block color="primary" class="mt-6" @click="createDbTask()"> Add to period
+    <v-btn :disabled="!isAddBtnActive" block color="primary" class="mt-6" @click="createDbTask()"> Döneme Ekle
     </v-btn>
-    <v-alert shaped prominent type="error" v-model="showAlert" dismissible> Can not add UNDONE Tasks </v-alert>
-    <v-alert shaped prominent type="error" v-model="noPeriodAlert" dismissible> Please select a Period </v-alert>
-    <v-alert type="success" v-model="success" dismissible> Task(s) Added SuccsesFully </v-alert>
+    <v-alert shaped prominent type="error" v-model="showAlert" dismissible> Sadece statüsü 'Done' olan tasklar
+      eklenebilir</v-alert>
+    <v-alert shaped prominent type="error" v-model="noPeriodAlert" dismissible> Lütfen bir dönem seçiniz </v-alert>
+    <v-alert type="success" v-model="success" dismissible> Task/Tasklar başarılı bir şekilde eklenmiştir </v-alert>
   </div>
 </template>
 <script>
@@ -65,8 +66,8 @@ export default {
           value: 'key',
         },
         { text: 'Status', value: 'status', align: 'right' },
-        { text: 'Summary', value: 'summary' },
-        { text: 'Total Hours', value: 'totalWorkHours' },
+        { text: 'Açıklama', value: 'summary' },
+        { text: 'Toplam Saat', value: 'totalWorkHours' },
       ],
     }
   },

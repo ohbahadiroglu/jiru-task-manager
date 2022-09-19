@@ -1,7 +1,7 @@
 <template>
   <div class="project">
     <v-card>
-      <v-card-title>Projects</v-card-title>
+      <v-card-title>Projeler</v-card-title>
 
       <div v-for="project in projects" :key="project.id">
         <v-row class="ma-0 pb-5 px-2">
@@ -15,7 +15,7 @@
             </h1>
           </v-col>
           <v-col>
-            <h1>Key :{{ project.key }}</h1>
+            <h3>Proje Anahtarı :{{ project.key }}</h3>
           </v-col>
         </v-row>
       </div>
@@ -28,7 +28,7 @@ import Project from '@/clients/Project'
 export default {
   name: 'ProjectView',
   data() {
-    return { projects: [], message: '', siteId: null , siteUrl:""}
+    return { projects: [], message: '', siteId: null, siteUrl: "" }
   },
   async mounted() {
     this.siteId = this.$route.query.siteId
