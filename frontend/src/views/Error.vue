@@ -10,13 +10,13 @@
 
     <div class="page-title text-center px-5">
       <h2 class="text-2xl font-weight-semibold text--primary d-flex align-center justify-center">
-        <span class="me-2">Ooops Something is Wrong 404 </span>
+        <span class="me-2">Bir hata oluştu </span>
         <v-icon color="warning">
           {{ icons.mdiAlert }}
         </v-icon>
       </h2>
-      <p class="text-sm">Please Check URL, Token, and Email that you entered agian</p>
-      <v-btn color="primary" to="/" class="mb-4"> Back to home </v-btn>
+      <p class="text-sm">Lütfen URL,Token ve Emaili tekrar kontrol ediniz</p>
+      <v-btn color="primary" to="/" class="mb-4"> Anasayfaya dön</v-btn>
 
       <div class="misc-character d-flex justify-center">
         <v-img

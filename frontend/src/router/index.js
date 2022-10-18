@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import HomeView from "../views/Home.vue";
 import HourlyWageView from "../views/HourlyWage.vue";
 import AdditionalAmount from "../views/AddtionalAmount.vue";
 import Period from "../views/Period.vue";
@@ -45,11 +44,6 @@ const routes = [
   {
     path: '*',
     redirect: 'error-404',
-  },
-  {
-    path: "/",
-    name: "home",
-    component: HomeView,
   },
   {
     path: "/site",

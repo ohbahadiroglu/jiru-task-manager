@@ -46,9 +46,7 @@ public class JiraTaskServiceImpl implements JiraTaskService {
                     Task tempTask = optionalTask.get();
                     taskService.update(tempTask, issue.getSummary(), issue.getTotalWorkHours(), issue.getDescription());
                 } else {
-                    List<Long> idList = new ArrayList<>();
-                    idList.add(optionalTask.get().getId());
-                    taskService.delete(idList);
+                    taskService.delete(List.of(optionalTask.get().getId()));
                 }
             } else {
                 issuesReturn.add(issue);
